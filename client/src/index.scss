@@ -1,0 +1,105 @@
+$color_blue: rgb(42, 64, 134);
+
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+.chatroom {
+  display: flex;
+  border: solid 2px $color_blue;
+  border-radius: 5px;
+  height: 80vh;
+}
+
+.member-area {
+  flex-basis: 25%;
+  // max-width: 200px;
+  display: flex;
+  flex-direction: column;
+  border-right: solid 1px #aaa;
+  .name {
+    font-weight: bold;
+    font-size: 15px;
+    color: $color_blue;
+  }
+  .intro {
+    font-size: 8px;
+  }
+  
+  .member-user {
+    border-bottom: solid 1px #aaa;
+    .user-img {
+      height: 90px;
+      border-radius: 99px;
+    }
+  }
+
+  .member-other-list {
+    flex-grow: 1;
+    overflow: auto;
+    .member-other {
+      display: flex;
+      flex-direction: row;
+      border: solid 1px #aaa;
+      border-radius: 5px;
+      .other-img-area {
+        min-width: 50px;
+        width: 30%;
+        img {
+          width: 100%;
+          border-radius: 99px;
+        }
+      }
+    }
+  }
+}
+
+.chat-area{
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+
+  .chat-list {
+    flex-grow: 0.9;
+    overflow: auto;
+    font-size: 13px;
+    display: flex;
+    flex-direction: column;
+    .msg-area {
+      .msg {
+        background: #eee;
+        border-radius: 5px;
+      }
+      .msg-user{
+        color: #ffffff;
+        background: $color_blue
+      }
+      .msg-alert {
+        border-radius: 99px;
+      }
+    }
+    .msg-alter-area {
+      min-width: 80%;
+    }
+    .chat {
+      display: flex;
+      .img-area {
+        height: 40px;
+        width: 40px;
+        img {
+          width: 100%;
+          border-radius: 99px;
+        }
+      }
+    }
+  }
+  .input-area {
+    display: flex;
+    flex-grow: 0.1;
+    i {
+      color: $color_blue
+    }
+  }
+}

@@ -1,27 +1,19 @@
-import './App.css';
-import React, { Component } from 'react'
+import _ from 'lodash'
+import './index.scss'
+import { useSelector } from 'react-redux'
+import Chatroom from './pages/Chatroom'
+import Login from './pages/Login'
+import React from 'react'
 
-class App extends Component {
-  state = {
-    text: ''
-  }
+export default function App () {
+  const user = useSelector(state => {
+    console.log(state)
+    return state.members.user
+  })
 
-  componentDidMount() {
-    this.fetchText()
-  }
-  fetchText = async () => {
-    const response = await fetch('/api/getText')
-    console.log(response)
-    const init = await response.json()
-    this.setState(init)
-  }
-  render() {
-    return (
-      <div className="App">
-        <p>in client get { this.state.text }!!!</p>
-      </div>
-    );
-  }
+  return (
+    <div className="App container pt-3">
+      { _.isEmpty(user) ? <Login /> : <Chatroom />}
+    </div>
+  )
 }
-
-export default App

@@ -6,10 +6,7 @@ import Login from './pages/Login'
 import React from 'react'
 
 export default function App () {
-  const user = useSelector(state => {
-    console.log(state)
-    return state.members.user
-  })
+  const user = useSelector(state => state.members.user)
 
   return (
     <div className="App container pt-3">

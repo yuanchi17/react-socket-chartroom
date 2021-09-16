@@ -1,17 +1,32 @@
 import _ from 'lodash'
-import { SendMsg } from '../actions/chat'
+import { AddOther, SendMsg, SendAlter } from '../actions/chat'
 import { useDispatch, useSelector } from 'react-redux'
 import CardOther from '../components/CardOther'
 import CardUser from '../components/CardUser'
 import ChatAlert from '../components/ChatAlert'
 import ChatOther from '../components/ChatOther'
 import ChatUser from '../components/ChatUser'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 const Chatroom = () => {
   const dispatch = useDispatch()
-  const { members, msgs } = useSelector((state) => state)
+  const { members, msgs, socket } = useSelector((state) => state)
   const [msgTmp, setMsgTmp] = useState('')
+
+  useEffect(() => { // 只會在元件第一次渲染時觸發
+    socket.emit('user-login', members.user)
+
+    socket.on('user-join', user => {
+      dispatch(AddOther(user))
+      dispatch(SendAlter(`歡迎 ${user.name} 加入聊天室`))
+
+      socket.emit('add-old-member', members.user) // 新人也需要有目前聊天室內的成員
+    })
+
+    socket.on('add-member', user => {
+      dispatch(AddOther(user))
+    })
+  }, [])
 
   // TODO: useEffect 同步更新
   const btnSend = () => {

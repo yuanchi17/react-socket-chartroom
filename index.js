@@ -10,12 +10,18 @@ const io = require('socket.io')(server)
 
 // chatroom server
 io.on('connection', socket => {
-  console.log('socket.io connect')
-  // io.send('Hello!')
+  let isAdded = false
+  console.log(`socket.io connect, id: ${socket.id}`)
 
-  // io.on('message', data => {
-  //   console.log('on message: ', data)
-  // })
+  socket.on('user-login', user => {
+    if (isAdded) return
+    socket.broadcast.emit('user-join', user)
+    isAdded = true
+  })
+
+  socket.on('add-old-member', user => {
+    socket.broadcast.emit('add-member', user)
+  })
 })
 
 app.io = io

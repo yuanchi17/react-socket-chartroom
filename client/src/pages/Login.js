@@ -1,9 +1,10 @@
 import { UserLogin } from '../actions/chat'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import React, { useState } from 'react'
 
 const Login = () => {
   const dispatch = useDispatch()
+  const { socket } = useSelector((state) => state)
   const [page, setPage] = useState('name')
   const [user, setUser] = useState({
     name: '',
@@ -17,7 +18,7 @@ const Login = () => {
 
   const btnLogin = () => {
     if (!user) return
-    dispatch(UserLogin(user))
+    dispatch(UserLogin({ user, id: socket.id }))
   }
 
   return (

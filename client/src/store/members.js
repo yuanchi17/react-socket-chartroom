@@ -1,3 +1,5 @@
+const _ = require('lodash')
+
 const initState = {
   // user: {
   //   id: 'm1',
@@ -6,21 +8,7 @@ const initState = {
   //   intro: '如果你很開心你就拍拍手！',
   // },
   user: {},
-  other: [
-    { id: 'm2', img: 'Xee8Yda', name: '海綿寶寶', intro: '我是海綿' },
-    {
-      id: 'm3',
-      img: 'ZelpWqC',
-      name: '派大星',
-      intro: '想體驗被石頭壓扁的感覺嗎',
-    },
-    {
-      id: 'm4',
-      img: 'ysk042a',
-      name: '珊迪',
-      intro: '好想在水裡可以不用戴著魚缸生活哦QQ',
-    },
-  ],
+  other: [],
 }
 
 export default (state = initState, action) => {
@@ -29,10 +17,17 @@ export default (state = initState, action) => {
       return {
         ...state,
         user: {
-          id: 'm1',
-          img: 'yCC8VdH',
+          img: _.sample(['yCC8VdH', 'Xee8Yda', 'ZelpWqC', 'ysk042a']),
           ...action.payload,
         },
+      }
+    case 'ADD_OTHER':
+      return {
+        ...state,
+        other: [
+          ...state.other,
+          action.payload.member,
+        ],
       }
     default:
       return state

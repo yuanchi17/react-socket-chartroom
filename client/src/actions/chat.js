@@ -3,7 +3,17 @@ exports.SendMsg = msg => ({
   payload: { msg },
 })
 
-exports.UserLogin = ({ name, intro }) => ({
+exports.SendAlter = msg => ({
+  type: 'SEND_ALTER',
+  payload: { msg },
+})
+
+exports.UserLogin = ({ user, id }) => ({
   type: 'USER_LOGIN',
-  payload: { name, intro },
+  payload: { ...user, id },
+})
+
+exports.AddOther = member => ({
+  type: 'ADD_OTHER',
+  payload: { member },
 })

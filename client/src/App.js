@@ -1,12 +1,26 @@
 import _ from 'lodash'
 import './index.scss'
-import { useSelector } from 'react-redux'
+import { SocketConnect } from './actions/socket'
+import { useSelector, useDispatch } from 'react-redux'
 import Chatroom from './pages/Chatroom'
 import Login from './pages/Login'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 export default function App () {
-  const user = useSelector(state => state.members.user)
+  const dispatch = useDispatch()
+  const { members, socket } = useSelector((state) => state)
+  const user = members.user
+
+  useEffect(() => { // 只會在元件第一次渲染時觸發
+    dispatch(SocketConnect())
+  }, [])
+
+  useEffect(() => {
+    if (!socket) return
+    socket.on('connect', () => {
+      console.log(`socket.io-client, id: ${socket.id}`)
+    })
+  }, [socket])
 
   return (
     <div className="App container pt-3">

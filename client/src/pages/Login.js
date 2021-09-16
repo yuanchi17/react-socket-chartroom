@@ -1,5 +1,5 @@
-import { UserLogin } from '../actions/chat'
 import { useDispatch, useSelector } from 'react-redux'
+import ChatActions from '../actions/chat'
 import React, { useState } from 'react'
 
 const Login = () => {
@@ -18,7 +18,7 @@ const Login = () => {
 
   const btnLogin = () => {
     if (!user) return
-    dispatch(UserLogin({ user, id: socket.id }))
+    dispatch(ChatActions.UserLogin({ user, id: socket.id }))
   }
 
   return (

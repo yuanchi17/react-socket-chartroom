@@ -1,4 +1,5 @@
 import _ from 'lodash'
+import { AddOther, SendAlter, SendMsg } from '../actions/chat'
 import { useDispatch, useSelector } from 'react-redux'
 import CardOther from '../components/CardOther'
 import CardUser from '../components/CardUser'
@@ -6,7 +7,6 @@ import ChatAlert from '../components/ChatAlert'
 import ChatOther from '../components/ChatOther'
 import ChatUser from '../components/ChatUser'
 import React, { useState, useEffect } from 'react'
-const ChatActions = require('../actions/chat')
 
 const Chatroom = () => {
   const dispatch = useDispatch()
@@ -17,21 +17,21 @@ const Chatroom = () => {
     socket.emit('user-login', members.user)
 
     socket.on('user-join', user => {
-      dispatch(ChatActions.AddOther(user))
-      dispatch(ChatActions.SendAlter(`歡迎 ${user.name} 加入聊天室`))
+      dispatch(AddOther(user))
+      dispatch(SendAlter(`歡迎 ${user.name} 加入聊天室`))
 
       socket.emit('add-old-member', members.user) // 新人也需要有目前聊天室內的成員
     })
 
     socket.on('add-member', user => {
-      dispatch(ChatActions.AddOther(user))
+      dispatch(AddOther(user))
     })
   }, [])
 
   // TODO: useEffect 同步更新
   const btnSend = () => {
     if (!msgTmp) return
-    dispatch(ChatActions.SendMsg(msgTmp))
+    dispatch(SendMsg(msgTmp))
     setMsgTmp('')
     const d = document.getElementById('chat-view')
     d.scrollTop = d.scrollHeight
@@ -65,7 +65,7 @@ const Chatroom = () => {
             })}
           </div>
           <form
-            className="input-area "
+            className="input-area mt-auto mb-1"
             onSubmit={(e) => {
               e.preventDefault()
               btnSend()

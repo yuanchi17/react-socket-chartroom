@@ -1,19 +1,19 @@
-exports.SendMsg = msg => ({
+export const SendMsg = msg => ({
   type: 'SEND_MSG',
   payload: { msg },
 })
 
-exports.SendAlter = msg => ({
+export const SendAlter = msg => ({
   type: 'SEND_ALTER',
   payload: { msg },
 })
 
-exports.UserLogin = ({ user, id }) => ({
+export const UserLogin = ({ user, id }) => ({
   type: 'USER_LOGIN',
   payload: { ...user, id },
 })
 
-exports.AddOther = member => ({
+export const AddOther = member => ({
   type: 'ADD_OTHER',
   payload: { member },
 })

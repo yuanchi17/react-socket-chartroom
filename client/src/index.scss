@@ -52,6 +52,13 @@ $color_blue: rgb(42, 64, 134);
         }
       }
     }
+    .member-other.leave-member {
+      background-color: #6c757d5e;
+      border: hidden;
+      .name {
+        color: #f8f9fa;
+      }
+    }
   }
 }
 

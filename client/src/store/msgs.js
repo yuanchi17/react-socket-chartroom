@@ -24,22 +24,25 @@ const initState = [
 ]
 
 export default (state = initState, action) => {
+  const payload = action.payload
   switch (action.type) {
-    case 'SEND_MSG':
+    case 'SEND_MSG': {
+      const user = payload.user
       return [
         ...state,
         {
-          text: action.payload.msg,
+          text: payload.msg,
           time: moment().format('HH:mm'),
-          type: 'user',
-          userId: 'm1', // 這裡之後要改，每個 'user' 的 Id 都會不一樣
+          type: payload.type,
+          userId: user.id,
         },
       ]
+    }
     case 'SEND_ALTER':
       return [
         ...state,
         {
-          text: action.payload.msg,
+          text: payload.msg,
           time: moment().format('HH:mm'),
           type: 'alter',
         },

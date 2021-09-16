@@ -1,5 +1,5 @@
 import React from 'react'
-
+// TODO: 離線的標示
 const CardOther = ({ member }) => {
   return (
     <div className="member-other m-2 p-2">

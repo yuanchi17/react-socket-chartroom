@@ -15,12 +15,22 @@ io.on('connection', socket => {
 
   socket.on('user-login', user => {
     if (isAdded) return
+    socket.userName = user.name
     socket.broadcast.emit('user-join', user)
     isAdded = true
   })
 
   socket.on('add-old-member', user => {
     socket.broadcast.emit('add-member', user)
+  })
+
+  socket.on('send-message', ({ msg, user }) => {
+    socket.broadcast.emit('send-message', { msg, user })
+  })
+
+  socket.on('disconnect', () => {
+    console.log(`socket.io disconnect, id: ${socket.id}, name: ${socket.userName}`)
+    socket.broadcast.emit('del-member', { id: socket.id, name: socket.userName })
   })
 })
 

@@ -1,6 +1,6 @@
-export const SendMsg = msg => ({
+export const SendMsg = obj => ({
   type: 'SEND_MSG',
-  payload: { msg },
+  payload: obj,
 })
 
 export const SendAlter = msg => ({
@@ -16,4 +16,9 @@ export const UserLogin = ({ user, id }) => ({
 export const AddOther = member => ({
   type: 'ADD_OTHER',
   payload: { member },
+})
+
+export const DelOther = id => ({
+  type: 'LEAVE_OTHER',
+  payload: { id },
 })

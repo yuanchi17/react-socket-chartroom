@@ -26,8 +26,16 @@ export default (state = initState, action) => {
         ...state,
         other: [
           ...state.other,
-          action.payload.member,
+          { ...action.payload.member, connect: true },
         ],
+      }
+    case 'LEAVE_OTHER':
+      return {
+        ...state,
+        other: state.other.map(member => ({
+          ...member,
+          connect: member.id !== action.payload.id,
+        })),
       }
     default:
       return state

@@ -39,6 +39,7 @@ const Login = () => {
               placeholder="請輸入暱稱"
               type="text"
               value={user.name}
+              maxLength="20"
               onChange={(e) => setUser({ ...user, name: e.target.value })}
             ></input>
           </div>

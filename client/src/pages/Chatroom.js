@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { AddOther, SendAlter, SendMsg } from '../actions/chat'
+import { AddOther, DelOther, SendAlter, SendMsg } from '../actions/chat'
 import { useDispatch, useSelector } from 'react-redux'
 import CardOther from '../components/CardOther'
 import CardUser from '../components/CardUser'
@@ -11,7 +11,7 @@ import React, { useState, useEffect } from 'react'
 const Chatroom = () => {
   const dispatch = useDispatch()
   const { members, msgs, socket } = useSelector((state) => state)
-  const [msgTmp, setMsgTmp] = useState('')
+  const [inputMsg, setInputMsg] = useState('')
 
   useEffect(() => { // 只會在元件第一次渲染時觸發
     socket.emit('user-login', members.user)
@@ -24,15 +24,31 @@ const Chatroom = () => {
     })
 
     socket.on('add-member', user => {
+      if (_.find(members.other, ['id', user.id])) return // 已經有顯示的成員就不用再新增
       dispatch(AddOther(user))
+    })
+
+    socket.on('del-member', user => {
+      if (!user.name) return
+      dispatch(DelOther(user.id))
+      dispatch(SendAlter(`${user.name} 已離開聊天室`))
+    })
+
+    socket.on('send-message', ({ msg, user }) => {
+      dispatch(SendMsg({ msg, user, type: 'other' }))
     })
   }, [])
 
-  // TODO: useEffect 同步更新
   const btnSend = () => {
-    if (!msgTmp) return
-    dispatch(SendMsg(msgTmp))
-    setMsgTmp('')
+    if (!inputMsg) return
+    const obj = {
+      msg: inputMsg,
+      user: members.user,
+    }
+    socket.emit('send-message', obj)
+    dispatch(SendMsg({ ...obj, type: 'user' }))
+
+    setInputMsg('')
     const d = document.getElementById('chat-view')
     d.scrollTop = d.scrollHeight
   }
@@ -77,8 +93,8 @@ const Chatroom = () => {
                 className="form-control m-1"
                 placeholder="輸入訊息"
                 type="text"
-                value={msgTmp}
-                onChange={(e) => setMsgTmp(e.target.value)}
+                value={inputMsg}
+                onChange={(e) => setInputMsg(e.target.value)}
               ></input>
             </div>
             <button

@@ -14,10 +14,10 @@ $color_blue: rgb(42, 64, 134);
 
 .member-area {
   flex-basis: 25%;
-  // max-width: 200px;
+  border-right: solid 1px #aaa;
   display: flex;
   flex-direction: column;
-  border-right: solid 1px #aaa;
+  overflow-wrap: anywhere;
   .name {
     font-weight: bold;
     font-size: 15px;

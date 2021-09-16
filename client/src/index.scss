@@ -10,9 +10,15 @@ $color_blue: rgb(42, 64, 134);
   border: solid 2px $color_blue;
   border-radius: 5px;
   height: 80vh;
+  @media only screen and (max-width: 600px) {
+    height: 90vh;
+  }
 }
 
 .member-area {
+  @media only screen and (max-width: 600px) {
+    display: none;
+  }
   flex-basis: 25%;
   border-right: solid 1px #aaa;
   display: flex;

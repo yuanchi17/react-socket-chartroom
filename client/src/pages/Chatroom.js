@@ -66,7 +66,7 @@ const Chatroom = () => {
           </div>
         </div>
         <div className="chat-area">
-          <div id="chat-view" className="chat-list">
+          <div id="chat-view" className="chat-list py-2">
             {msgs.map((msg, index) => {
               switch (msg.type) {
                 case 'user':

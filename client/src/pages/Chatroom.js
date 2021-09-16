@@ -2,11 +2,11 @@ import _ from 'lodash'
 import { useDispatch, useSelector } from 'react-redux'
 import CardOther from '../components/CardOther'
 import CardUser from '../components/CardUser'
-import ChatActions from '../actions/chat'
 import ChatAlert from '../components/ChatAlert'
 import ChatOther from '../components/ChatOther'
 import ChatUser from '../components/ChatUser'
 import React, { useState, useEffect } from 'react'
+const ChatActions = require('../actions/chat')
 
 const Chatroom = () => {
   const dispatch = useDispatch()

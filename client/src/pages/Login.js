@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
-import ChatActions from '../actions/chat'
 import React, { useState } from 'react'
+const ChatActions = require('../actions/chat')
 
 const Login = () => {
   const dispatch = useDispatch()

@@ -1,8 +1,8 @@
 import _ from 'lodash'
-import { AddOther, SendMsg, SendAlter } from '../actions/chat'
 import { useDispatch, useSelector } from 'react-redux'
 import CardOther from '../components/CardOther'
 import CardUser from '../components/CardUser'
+import ChatActions from '../actions/chat'
 import ChatAlert from '../components/ChatAlert'
 import ChatOther from '../components/ChatOther'
 import ChatUser from '../components/ChatUser'
@@ -17,21 +17,21 @@ const Chatroom = () => {
     socket.emit('user-login', members.user)
 
     socket.on('user-join', user => {
-      dispatch(AddOther(user))
-      dispatch(SendAlter(`歡迎 ${user.name} 加入聊天室`))
+      dispatch(ChatActions.AddOther(user))
+      dispatch(ChatActions.SendAlter(`歡迎 ${user.name} 加入聊天室`))
 
       socket.emit('add-old-member', members.user) // 新人也需要有目前聊天室內的成員
     })
 
     socket.on('add-member', user => {
-      dispatch(AddOther(user))
+      dispatch(ChatActions.AddOther(user))
     })
   }, [])
 
   // TODO: useEffect 同步更新
   const btnSend = () => {
     if (!msgTmp) return
-    dispatch(SendMsg(msgTmp))
+    dispatch(ChatActions.SendMsg(msgTmp))
     setMsgTmp('')
     const d = document.getElementById('chat-view')
     d.scrollTop = d.scrollHeight

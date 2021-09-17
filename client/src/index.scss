@@ -1,4 +1,7 @@
-$color_blue: rgb(42, 64, 134);
+$color_blue: #118bdd;
+$color_gray: #acb7be81;
+$color_gray_leave: #acb7be30;
+$color_gray_leave_name: #adb5bd;
 
 .App {
   font-family: sans-serif;
@@ -20,7 +23,7 @@ $color_blue: rgb(42, 64, 134);
     display: none;
   }
   flex-basis: 25%;
-  border-right: solid 1px #aaa;
+  border-right: solid 1px $color_gray;
   display: flex;
   flex-direction: column;
   overflow-wrap: anywhere;
@@ -34,7 +37,7 @@ $color_blue: rgb(42, 64, 134);
   }
   
   .member-user {
-    border-bottom: solid 1px #aaa;
+    border-bottom: solid 1px $color_gray;
     .user-img {
       height: 90px;
       border-radius: 99px;
@@ -47,7 +50,7 @@ $color_blue: rgb(42, 64, 134);
     .member-other {
       display: flex;
       flex-direction: row;
-      border: solid 1px #aaa;
+      border: solid 1px $color_gray;
       border-radius: 5px;
       .other-img-area {
         min-width: 50px;
@@ -59,10 +62,20 @@ $color_blue: rgb(42, 64, 134);
       }
     }
     .member-other.leave-member {
-      background-color: #6c757d5e;
-      border: hidden;
+      position: relative;
+      &::after {
+        background-color: $color_gray_leave;
+        content: "";
+        display: block;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 1;
+      }
       .name {
-        color: #f8f9fa;
+        color: $color_gray_leave_name;
       }
     }
   }
@@ -72,7 +85,7 @@ $color_blue: rgb(42, 64, 134);
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  overflow: auto;
+  // overflow: auto;
 
   .chat-list {
     flex-grow: 0.9;
@@ -101,6 +114,7 @@ $color_blue: rgb(42, 64, 134);
       .img-area {
         height: 40px;
         width: 40px;
+        min-width: 40px;
         img {
           width: 100%;
           border-radius: 99px;
@@ -116,4 +130,31 @@ $color_blue: rgb(42, 64, 134);
       color: $color_blue
     }
   }
+}
+
+#chat-view, .member-other-list {
+  overflow-wrap: anywhere;
+  .time {
+    color: #333;
+    min-width: 33px;
+  };
+  &::-webkit-scrollbar-track { // 軌道的樣式
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #F5F5F5;
+  }
+  &::-webkit-scrollbar { // 整體的scrollbar樣式
+    width: 6px;
+    background-color: #F5F5F5;
+  }
+  &::-webkit-scrollbar-thumb { // bar的樣式
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #118bdd99;
+  }
+}
+
+.form-control:focus {
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  box-shadow: none;
 }

@@ -21,7 +21,9 @@ export default (state = initState, action) => {
           ...action.payload,
         },
       }
-    case 'ADD_OTHER':
+    case 'ADD_OTHER': {
+      const members = action.payload.member
+      if (_.find(state.other, ['id', members.id])) return state // 已經有顯示的成員就不用再新增
       return {
         ...state,
         other: [
@@ -29,6 +31,7 @@ export default (state = initState, action) => {
           { ...action.payload.member, connect: true },
         ],
       }
+    }
     case 'LEAVE_OTHER':
       return {
         ...state,

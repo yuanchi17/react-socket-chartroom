@@ -24,7 +24,6 @@ const Chatroom = () => {
     })
 
     socket.on('add-member', user => {
-      if (_.find(members.other, ['id', user.id])) return // 已經有顯示的成員就不用再新增
       dispatch(AddOther(user))
     })
 
@@ -39,6 +38,11 @@ const Chatroom = () => {
     })
   }, [])
 
+  useEffect(() => { // 有訊息新增時滾輪自動到最底部
+    const d = document.getElementById('chat-view')
+    d.scrollTop = d.scrollHeight
+  }, [msgs])
+
   const btnSend = () => {
     if (!inputMsg) return
     const obj = {
@@ -49,8 +53,6 @@ const Chatroom = () => {
     dispatch(SendMsg({ ...obj, type: 'user' }))
 
     setInputMsg('')
-    const d = document.getElementById('chat-view')
-    d.scrollTop = d.scrollHeight
   }
 
   return (
@@ -60,12 +62,12 @@ const Chatroom = () => {
         <div className="member-area">
           <CardUser user={members.user} />
           <div className="member-other-list">
-            {members.other.map((m) => (
+            {_.orderBy(members.other, ['connect'], ['desc']).map((m) => (
               <CardOther member={m} key={m.id} />
             ))}
           </div>
         </div>
-        <div className="chat-area">
+        <div className="chat-area pb-2">
           <div id="chat-view" className="chat-list py-2">
             {msgs.map((msg, index) => {
               switch (msg.type) {

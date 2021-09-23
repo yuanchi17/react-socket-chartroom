@@ -37,7 +37,7 @@ export default (state = initState, action) => {
         ...state,
         other: state.other.map(member => ({
           ...member,
-          connect: member.id !== action.payload.id,
+          connect: member.connect ? member.id !== action.payload.id : false,
         })),
       }
     default:

@@ -23,7 +23,7 @@ const Login = () => {
 
   return (
     <div>
-      <h2 className="mb-3">Chat Room</h2>
+      <h2 className="mb-3">即時聊天室</h2>
       {page === 'name'
         ? (<form
           className="input-area"

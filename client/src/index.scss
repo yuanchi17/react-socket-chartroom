@@ -3,6 +3,13 @@ $color_gray: #acb7be81;
 $color_gray_leave: #acb7be30;
 $color_gray_leave_name: #adb5bd;
 
+body {
+  letter-spacing: 1px;
+  @media only screen and (max-width: 600px) {
+    background-color: #118bdd30
+  }
+}
+
 .App {
   font-family: sans-serif;
   text-align: center;
@@ -14,6 +21,7 @@ $color_gray_leave_name: #adb5bd;
   border-radius: 5px;
   height: 80vh;
   @media only screen and (max-width: 600px) {
+    border: none;
     height: 90vh;
   }
 }

@@ -1,4 +1,4 @@
-$color_blue: #118bdd;
+$color_blue: rgb(42, 64, 134);
 $color_gray: #acb7be81;
 $color_gray_leave: #acb7be30;
 $color_gray_leave_name: #adb5bd;
@@ -6,7 +6,7 @@ $color_gray_leave_name: #adb5bd;
 body {
   letter-spacing: 1px;
   @media only screen and (max-width: 600px) {
-    background-color: #118bdd30
+    background-color: #2a408630;
   }
 }
 
@@ -18,7 +18,6 @@ body {
 .chatroom {
   display: flex;
   border: solid 2px $color_blue;
-  border-radius: 5px;
   height: 80vh;
   @media only screen and (max-width: 600px) {
     border: none;
@@ -30,7 +29,7 @@ body {
   @media only screen and (max-width: 600px) {
     display: none;
   }
-  flex-basis: 25%;
+  flex-basis: 20%;
   border-right: solid 1px $color_gray;
   display: flex;
   flex-direction: column;

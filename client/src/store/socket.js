@@ -2,6 +2,7 @@ import { io } from 'socket.io-client'
 
 const initState = null
 
+// reducer
 export default (state = initState, action) => {
   switch (action.type) {
     case 'SOCKET_CONNECT':

@@ -1,25 +1,24 @@
 const _ = require('lodash')
 
 const initState = {
-  // user: {
-  //   id: 'm1',
-  //   img: 'yCC8VdH',
-  //   name: '琦怪欸',
-  //   intro: '如果你很開心你就拍拍手！',
-  // },
   user: {},
-  other: [],
+  other: [
+    // {
+    //   id: '3e6wMD-FRnBbR60aAAAt',
+    //   img: 'yCC8VdH',
+    //   name: '琦怪欸',
+    //   intro: '如果你很開心你就拍拍手！',
+    // }
+  ],
 }
 
+// reducer
 export default (state = initState, action) => {
   switch (action.type) {
     case 'USER_LOGIN':
       return {
         ...state,
-        user: {
-          img: _.sample(['yCC8VdH', 'Xee8Yda', 'ZelpWqC', 'ysk042a']),
-          ...action.payload,
-        },
+        user: action.payload,
       }
     case 'ADD_OTHER': {
       const members = action.payload.member

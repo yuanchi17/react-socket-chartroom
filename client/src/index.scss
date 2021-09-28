@@ -25,6 +25,17 @@ body {
   }
 }
 
+.btn-img {
+  border-radius: 99px;
+  box-shadow: 0px 0px 5px 0.5px #3335;
+  height: 50px;
+  overflow: hidden;
+  width: 50px;
+  &.select-img, &:focus {
+    box-shadow: 0 0 0 0.2rem #ffc107;
+  }
+}
+
 .member-area {
   @media only screen and (max-width: 600px) {
     display: none;

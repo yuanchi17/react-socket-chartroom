@@ -8,11 +8,6 @@ export const SendAlter = msg => ({
   payload: { msg },
 })
 
-export const UserLogin = ({ user, id }) => ({
-  type: 'USER_LOGIN',
-  payload: { ...user, id },
-})
-
 export const AddOther = member => ({
   type: 'ADD_OTHER',
   payload: { member },

@@ -1,30 +1,49 @@
 import _ from 'lodash'
+import React, { useEffect, useState } from 'react'
+import { ConnectionState } from './components/ConnectState'
+import { useApp } from './context/appContext'
 import './index.scss'
-import { SocketConnect } from './actions/socket'
-import { useSelector, useDispatch } from 'react-redux'
 import Chatroom from './pages/Chatroom'
 import Login from './pages/Login'
-import React, { useEffect } from 'react'
+import socket from './socket'
 
+// https://socket.io/how-to/use-with-react
+// https://github.com/socketio/socket.io-client/issues/1492
 export default function App () {
-  const dispatch = useDispatch()
-  const { members, socket } = useSelector((state) => state)
-  const user = members.user
-
-  useEffect(() => { // 只會在元件第一次渲染時觸發
-    dispatch(SocketConnect())
-  }, [])
-
+  const { user } = useApp()
+  const [isConnected, setIsConnected] = useState(socket.connected)
+  
   useEffect(() => {
+    // console.log('socket:', socket)
     if (!socket) return
-    socket.on('connect', () => {
+    
+    const onConnect = () => { setIsConnected(true) }
+    const onDisconnect = () => { setIsConnected(false) }
+
+    // const onFooEvent = (value) => {
+    //   setFooEvents(previous => [...previous, value])
+    // }
+
+    socket.on('connect',()=>{
       console.log(`socket.io-client, id: ${socket.id}`)
+      onConnect()
     })
+    socket.on('disconnect', onDisconnect())
+    // socket.on('foo', onFooEvent())
+
+    return () => {
+      socket.off('connect', onConnect())
+      socket.off('disconnect', onDisconnect())
+      // socket.off('foo', onFooEvent())
+    }
   }, [socket])
 
   return (
     <div className="App container pt-3">
-      { _.isEmpty(user) ? <Login /> : <Chatroom />}
+      { isConnected
+        ? _.isEmpty(user) ? <Login /> : <Chatroom />
+        : <ConnectionState isConnected={isConnected}/>
+      }
     </div>
   )
 }

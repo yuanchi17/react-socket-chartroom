@@ -1,9 +1,10 @@
-import { useDispatch, useSelector } from 'react-redux'
 import React, { useState } from 'react'
+import { useApp } from '../context/appContext'
+import socket from '../socket'
 
 const Login = () => {
-  const dispatch = useDispatch()
-  const { socket } = useSelector((state) => state)
+  const { dispatch } = useApp()
+
   const [page, setPage] = useState('name')
   const [user, setUser] = useState({
     img: '',
@@ -21,7 +22,7 @@ const Login = () => {
 
   const btnLogin = () => {
     if (!user) return
-    dispatch({ type: 'USER_LOGIN', payload: { ...user, id: socket.id } })
+    dispatch({ type: 'userLogin', payload: { ...user, id: socket.id } })
   }
 
   return (

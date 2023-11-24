@@ -1,12 +1,18 @@
 const cors = require('cors')
 const path = require('path')
+// https://socket.io/docs/v4/server-initialization/#with-an-http-server
+const { createServer } = require("http") 
+const { Server } = require("socket.io")
+// const express = require('express')
+// const app = express()
 
-const express = require('express')
-const app = express()
-
-const PORT = process.env.PORT || 3001
-const server = require("http").createServer(app)
-const io = require('socket.io')(server)
+const PORT = process.env.PORT || 4000
+const httpServer = createServer()
+const io = new Server(httpServer, {
+  cors: {
+    origin: "http://localhost:3000",
+  },
+})
 
 // chatroom server
 io.on('connection', socket => {
@@ -34,12 +40,12 @@ io.on('connection', socket => {
   })
 })
 
-app.io = io
-app.use(cors())
-// Serve static files from the React frontend app
-app.use(express.static(path.join(__dirname, 'client/build')))
-server.listen(PORT, () => {
-  console.log(`server listening on ${PORT}`)
+// app.io = io
+// app.use(cors())
+// // Serve static files from the React frontend app
+// app.use(express.static(path.join(__dirname, 'client/build')))
+httpServer.listen(PORT, () => {
+  console.log(`httpServer listening on ${PORT}`)
 })
 
 // https://socket.io/docs/v4/how-it-works/#Socket-IO

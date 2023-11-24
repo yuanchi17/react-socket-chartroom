@@ -1,15 +1,21 @@
 import React from 'react'
 
 const ChatOther = ({ msg, user }) => {
+  console.log(user)
+  console.log(`https://i.imgur.com/${user.img}.png`)
+  const photo = `https://i.imgur.com/${user.img}.png`
   return (
     <div className="chat px-2 py-1">
-      <div className="img-area">
-        <img
-          className="img-fluid mt-1"
-          src={`https://i.imgur.com/${user.img}.png`}
-          alt="other"
-        ></img>
-      </div>
+      {photo? 
+        <div className="img-area">
+          <img
+            className="img-fluid mt-1"
+            src={`https://i.imgur.com/${user.img}.png`}
+            alt="other"
+            ></img>
+        </div>
+        : <></>
+      }
       <div className="msg-area mx-0 p-1 pl-2 text-left">
         <small className="m-0 mb-1 name">{user.name}</small>
         <p className="m-0 p-2 text-wrap msg">{msg.text}</p>

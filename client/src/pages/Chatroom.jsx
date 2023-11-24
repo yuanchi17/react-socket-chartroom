@@ -1,40 +1,39 @@
 import _ from 'lodash'
-import { AddOther, DelOther, SendAlter, SendMsg } from '../actions/chat'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useEffect, useState } from 'react'
 import CardOther from '../components/CardOther'
 import CardUser from '../components/CardUser'
 import ChatAlert from '../components/ChatAlert'
 import ChatOther from '../components/ChatOther'
 import ChatUser from '../components/ChatUser'
-import React, { useState, useEffect } from 'react'
+import { useApp } from '../context/appContext'
+import socket from '../socket'
 
 const Chatroom = () => {
-  const dispatch = useDispatch()
-  const { members, msgs, socket } = useSelector((state) => state)
+  const { dispatch, user, msgs, otherUsers } = useApp()
   const [inputMsg, setInputMsg] = useState('')
 
   useEffect(() => { // 只會在元件第一次渲染時觸發
-    socket.emit('user-login', members.user)
+    socket.emit('user-login', user)
 
     socket.on('user-join', user => {
-      dispatch(AddOther(user))
-      dispatch(SendAlter(`歡迎 ${user.name} 加入聊天室`))
+      dispatch({ type: 'otherUserLogin', payload: user })
+      dispatch({ type: 'sendMsgAlert', payload: `歡迎 ${user.name} 加入聊天室` })
 
-      socket.emit('add-old-member', members.user) // 新人也需要有目前聊天室內的成員
+      socket.emit('add-old-member', user) // 新人也需要有目前聊天室內的成員
     })
 
     socket.on('add-member', user => {
-      dispatch(AddOther(user))
+      dispatch({ type: 'otherUserLogin', payload: user })
     })
 
     socket.on('del-member', user => {
       if (!user.name) return
-      dispatch(DelOther(user.id))
-      dispatch(SendAlter(`${user.name} 已離開聊天室`))
+      dispatch({ type: 'otherUserLogout', payload: user.id })
+      dispatch({ type: 'sendMsgAlert', payload: `${user.name} 已離開聊天室` })
     })
 
     socket.on('send-message', ({ msg, user }) => {
-      dispatch(SendMsg({ msg, user, type: 'other' }))
+      dispatch({ type: 'sendMsg', payload: { msg, user, type: 'other' } })
     })
   }, [])
 
@@ -47,10 +46,10 @@ const Chatroom = () => {
     if (!inputMsg) return
     const obj = {
       msg: inputMsg,
-      user: members.user,
+      user: user,
     }
     socket.emit('send-message', obj)
-    dispatch(SendMsg({ ...obj, type: 'user' }))
+    dispatch({ type: 'sendMsg', payload: { ...obj, type: 'user' } })
 
     setInputMsg('')
   }
@@ -60,9 +59,9 @@ const Chatroom = () => {
       <h2 className="mb-3">即時聊天室</h2>
       <div className="chatroom">
         <div className="member-area">
-          <CardUser user={members.user} />
+          <CardUser user={user} />
           <div className="member-other-list">
-            {_.orderBy(members.other, ['connect'], ['desc']).map((m) => (
+            {_.orderBy(otherUsers, ['connect'], ['desc']).map((m) => (
               <CardOther member={m} key={m.id} />
             ))}
           </div>
@@ -74,7 +73,7 @@ const Chatroom = () => {
                 case 'user':
                   return <ChatUser msg={msg} key={index} />
                 case 'other': {
-                  const user = _.find(members.other, ['id', msg.userId])
+                  const user = _.find(otherUsers, ['id', msg.userId])
                   return <ChatOther msg={msg} user={user} key={index} />
                 }
                 default:

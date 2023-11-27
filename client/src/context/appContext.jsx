@@ -31,7 +31,7 @@ const reducer = (draft, action) => {
     case 'otherUserLogout':
       draft.otherUsers = draft.otherUsers.map(user => ({
         ...user,
-        connect: user.connect ? user.id !== action.payload.id : false,
+        connect: user.connect ? user.id !== action.payload : false,
       }))
       break
     case 'sendMsg':

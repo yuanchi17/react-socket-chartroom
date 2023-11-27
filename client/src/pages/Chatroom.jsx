@@ -15,18 +15,18 @@ const Chatroom = () => {
   useEffect(() => { // 只會在元件第一次渲染時觸發
     socket.emit('user-login', user)
 
-    socket.on('user-join', user => {
-      dispatch({ type: 'otherUserLogin', payload: user })
-      dispatch({ type: 'sendMsgAlert', payload: `歡迎 ${user.name} 加入聊天室` })
+    socket.on('new-user-join', newUser => {
+      dispatch({ type: 'addOtherUser', payload: newUser })
+      dispatch({ type: 'sendMsgAlert', payload: `歡迎 ${newUser.name} 加入聊天室` })
 
-      socket.emit('add-old-member', user) // 新人也需要有目前聊天室內的成員
+      socket.emit('add-old-user', { oldUser: user, newUserId: newUser.id}) // 將目前聊天室內的成員傳給新成員
     })
 
-    socket.on('add-member', user => {
-      dispatch({ type: 'otherUserLogin', payload: user })
+    socket.on('add-old-user', oldUser => {
+      dispatch({ type: 'addOtherUser', payload: oldUser })
     })
 
-    socket.on('del-member', user => {
+    socket.on('del-user', user => {
       if (!user.name) return
       dispatch({ type: 'otherUserLogout', payload: user.id })
       dispatch({ type: 'sendMsgAlert', payload: `${user.name} 已離開聊天室` })
@@ -74,6 +74,7 @@ const Chatroom = () => {
                   return <ChatUser msg={msg} key={index} />
                 case 'other': {
                   const user = _.find(otherUsers, ['id', msg.userId])
+                  console.log('------- case other -------')
                   return <ChatOther msg={msg} user={user} key={index} />
                 }
                 default:

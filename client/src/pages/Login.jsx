@@ -16,7 +16,6 @@ const Login = () => {
   const btnName = () => {
     console.log(user)
     if (!user.name || !user.img) return
-    console.log('done')
     setPage('intro')
   }
 

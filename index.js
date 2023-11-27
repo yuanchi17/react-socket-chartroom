@@ -21,13 +21,16 @@ io.on('connection', socket => {
 
   socket.on('user-login', user => {
     if (isAdded) return
+     // 需更新成員名單
     socket.userName = user.name
-    socket.broadcast.emit('user-join', user)
+    socket.broadcast.emit('new-user-join', user)
     isAdded = true
   })
 
-  socket.on('add-old-member', user => {
-    socket.broadcast.emit('add-member', user)
+  socket.on('add-old-user', ({ oldUser, newUserId }) => {
+    // https://socket.io/docs/v3/emit-cheatsheet/#server-side
+    // to individual socketid (private message)
+    socket.to(newUserId).emit('add-old-user', oldUser)
   })
 
   socket.on('send-message', ({ msg, user }) => {
@@ -36,7 +39,7 @@ io.on('connection', socket => {
 
   socket.on('disconnect', () => {
     console.log(`socket.io disconnect, id: ${socket.id}, name: ${socket.userName}`)
-    socket.broadcast.emit('del-member', { id: socket.id, name: socket.userName })
+    socket.broadcast.emit('del-user', { id: socket.id, name: socket.userName })
   })
 })
 

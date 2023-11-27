@@ -8,7 +8,7 @@ const initState = [
   //   text: '跟你說！我碰到水會長大哦XD',
   // },
   // { type: 'user', time: '16:01', userId: '000000-FRnBbR60aAAAt', text: '真假啦 想看!!!' },
-  // { type: 'alter', time: '16:10', text: '歡迎 珊迪 加入聊天室' },
+  // { type: 'alert', time: '16:10', text: '歡迎 珊迪 加入聊天室' },
 ]
 
 // reducer
@@ -27,13 +27,13 @@ export default (state = initState, action) => {
         },
       ]
     }
-    case 'SEND_ALTER':
+    case 'SEND_ALERT':
       return [
         ...state,
         {
           text: payload.msg,
           time: moment().format('HH:mm'),
-          type: 'alter',
+          type: 'alert',
         },
       ]
     default:

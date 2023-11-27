@@ -17,17 +17,15 @@ const AppContext = createContext(undefined)
 AppContext.displayName = 'app-context'
 
 const reducer = (draft, action) => {
-  // TODO: 原本A以再聊天室，B加入後，A發送訊息時，B會發生錯誤
-  // 猜測可能是因為B的 otherUsers 有問題
   switch (action.type) {
     case 'userLogin':
       draft.user = action.payload
       break
-    case 'otherUserLogin':
+    case 'addOtherUser':
       const newUser = action.payload
       const currentOtherUsers = draft.otherUsers
-      if (newUser.id === draft.user.id) return currentOtherUsers
-      if (_.find(currentOtherUsers, ['id', newUser.id])) return currentOtherUsers // 已經有顯示的成員就不用再新增
+      if (newUser.id === draft.user.id) return 
+      if (_.find(currentOtherUsers, ['id', newUser.id])) return  // 已經有顯示的成員就不用再新增
       draft.otherUsers.push({ ...newUser, connect: true })
       break
     case 'otherUserLogout':
@@ -35,11 +33,8 @@ const reducer = (draft, action) => {
         ...user,
         connect: user.connect ? user.id !== action.payload.id : false,
       }))
-      console.log('otherUserLogout')
-      console.log(draft)
       break
     case 'sendMsg':
-      console.log(action.payload)
       const user = action.payload.user
       draft.msgs.push({
         text: action.payload.msg,
@@ -52,7 +47,7 @@ const reducer = (draft, action) => {
       draft.msgs.push({
         text: action.payload,
         time: moment().format('HH:mm'),
-        type: 'alter',
+        type: 'alert',
       })
       break
   }

@@ -3,8 +3,8 @@ export const SendMsg = obj => ({
   payload: obj,
 })
 
-export const SendAlter = msg => ({
-  type: 'SEND_ALTER',
+export const Sendalert = msg => ({
+  type: 'SEND_ALERT',
   payload: { msg },
 })
 

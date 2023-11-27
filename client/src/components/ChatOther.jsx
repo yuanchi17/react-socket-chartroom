@@ -1,8 +1,6 @@
 import React from 'react'
 
 const ChatOther = ({ msg, user }) => {
-  console.log(user)
-  console.log(`https://i.imgur.com/${user.img}.png`)
   const photo = `https://i.imgur.com/${user.img}.png`
   return (
     <div className="chat px-2 py-1">

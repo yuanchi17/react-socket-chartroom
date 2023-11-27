@@ -20,23 +20,17 @@ export default function App () {
     const onConnect = () => { setIsConnected(true) }
     const onDisconnect = () => { setIsConnected(false) }
 
-    // const onFooEvent = (value) => {
-    //   setFooEvents(previous => [...previous, value])
-    // }
-
     socket.on('connect',()=>{
       console.log(`socket.io-client, id: ${socket.id}`)
       onConnect()
     })
     socket.on('disconnect', onDisconnect())
-    // socket.on('foo', onFooEvent())
 
     return () => {
       socket.off('connect', onConnect())
       socket.off('disconnect', onDisconnect())
-      // socket.off('foo', onFooEvent())
     }
-  }, [socket])
+  }, [])
 
   return (
     <div className="App container pt-3">

@@ -76,7 +76,6 @@ const Chatroom = () => {
                   return <ChatUser msg={msg} key={index} />
                 case 'other': {
                   const user = _.find(otherUsers, ['id', msg.userId])
-                  console.log('------- case other -------')
                   return <ChatOther msg={msg} user={user} key={index} />
                 }
                 default:

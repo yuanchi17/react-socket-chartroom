@@ -1,3 +1,4 @@
+import { clsx } from 'clsx'
 import React, { useState } from 'react'
 import { useApp } from '../context/appContext'
 import socket from '../socket'
@@ -27,20 +28,15 @@ const Login = () => {
   return (
     <div>
       <h2 className='mb-3'>即時聊天室</h2>
-      {imgs.map(img => {
-        if (user.img === img) {
-          return (
-            <button className='btn btn-img m-2 p-0 select-img' key={img} onClick={() => setUser({ ...user, img })}>
-              <img className='w-100 rounded' src={`https://i.imgur.com/${img}.png`} />
-            </button>
-          )
-        }
-        return (
-          <button className='btn btn-img m-2 p-0' key={img} onClick={() => setUser({ ...user, img })}>
-            <img className='w-100 rounded' src={`https://i.imgur.com/${img}.png`} />
-          </button>
-        )
-      })}
+      {imgs.map(img => (
+        <button
+          className={clsx('btn btn-img m-2 p-0', user.img === img && 'select-img')}
+          key={img}
+          onClick={() => setUser({ ...user, img })}
+        >
+          <img className='w-100 rounded' src={`https://i.imgur.com/${img}.png`} />
+        </button>
+      ))}
       <form
         className='input-area my-2'
         onSubmit={e => {

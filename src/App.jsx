@@ -37,7 +37,7 @@ export default function App() {
   }, [])
 
   return (
-    <div className="App container pt-3">
+    <div className='App container pt-3'>
       {isConnected ? _.isEmpty(user) ? <Login /> : <Chatroom /> : <ConnectionState isConnected={isConnected} />}
     </div>
   )

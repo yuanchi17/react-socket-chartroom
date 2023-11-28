@@ -26,36 +26,36 @@ const Login = () => {
 
   return (
     <div>
-      <h2 className="mb-3">即時聊天室</h2>
+      <h2 className='mb-3'>即時聊天室</h2>
       {imgs.map(img => {
         if (user.img === img) {
           return (
-            <button className="btn btn-img m-2 p-0 select-img" key={img} onClick={() => setUser({ ...user, img })}>
-              <img className="w-100 rounded" src={`https://i.imgur.com/${img}.png`} />
+            <button className='btn btn-img m-2 p-0 select-img' key={img} onClick={() => setUser({ ...user, img })}>
+              <img className='w-100 rounded' src={`https://i.imgur.com/${img}.png`} />
             </button>
           )
         }
         return (
-          <button className="btn btn-img m-2 p-0" key={img} onClick={() => setUser({ ...user, img })}>
-            <img className="w-100 rounded" src={`https://i.imgur.com/${img}.png`} />
+          <button className='btn btn-img m-2 p-0' key={img} onClick={() => setUser({ ...user, img })}>
+            <img className='w-100 rounded' src={`https://i.imgur.com/${img}.png`} />
           </button>
         )
       })}
       <form
-        className="input-area my-2"
+        className='input-area my-2'
         onSubmit={e => {
           e.preventDefault()
           btnName()
         }}
       >
-        <div className="input-group flex-nowrap">
+        <div className='input-group flex-nowrap'>
           <input
             autoFocus
-            className="form-control m-1"
-            placeholder="請輸入暱稱"
-            type="text"
+            className='form-control m-1'
+            placeholder='請輸入暱稱'
+            type='text'
             value={user.name}
-            maxLength="20"
+            maxLength='20'
             onChange={e => setUser({ ...user, name: e.target.value })}
           />
         </div>
@@ -64,18 +64,18 @@ const Login = () => {
         <></>
       ) : (
         <form
-          className="input-area"
+          className='input-area'
           onSubmit={e => {
             e.preventDefault()
             btnLogin()
           }}
         >
-          <div className="input-group flex-nowrap">
+          <div className='input-group flex-nowrap'>
             <input
               autoFocus
-              className="form-control m-1"
+              className='form-control m-1'
               placeholder={`Hi ${user.name}，介紹一下自己吧 :D`}
-              type="text"
+              type='text'
               value={user.intro}
               onChange={e => setUser({ ...user, intro: e.target.value })}
             />

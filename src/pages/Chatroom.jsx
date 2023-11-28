@@ -58,18 +58,18 @@ const Chatroom = () => {
 
   return (
     <div>
-      <h2 className="mb-3">即時聊天室</h2>
-      <div className="chatroom">
-        <div className="member-area">
+      <h2 className='mb-3'>即時聊天室</h2>
+      <div className='chatroom'>
+        <div className='member-area'>
           <CardUser user={user} />
-          <div className="member-other-list">
+          <div className='member-other-list'>
             {_.orderBy(otherUsers, ['connect'], ['desc']).map(m => (
               <CardOther member={m} key={m.id} />
             ))}
           </div>
         </div>
-        <div className="chat-area pb-2">
-          <div id="chat-view" className="chat-list py-2">
+        <div className='chat-area pb-2'>
+          <div id='chat-view' className='chat-list py-2'>
             {msgs.map((msg, index) => {
               switch (msg.type) {
                 case 'user':
@@ -85,24 +85,24 @@ const Chatroom = () => {
             })}
           </div>
           <form
-            className="input-area mt-auto mb-1"
+            className='input-area mt-auto mb-1'
             onSubmit={e => {
               e.preventDefault()
               btnSend()
             }}
           >
-            <div className="input-group flex-nowrap">
+            <div className='input-group flex-nowrap'>
               <input
                 autoFocus
-                className="form-control m-1"
-                placeholder="輸入訊息"
-                type="text"
+                className='form-control m-1'
+                placeholder='輸入訊息'
+                type='text'
                 value={inputMsg}
                 onChange={e => setInputMsg(e.target.value)}
               />
             </div>
-            <button type="button" className="btn px-2 input-group-prepend" onClick={btnSend}>
-              <i className="fa fa-paper-plane my-auto" />
+            <button type='button' className='btn px-2 input-group-prepend' onClick={btnSend}>
+              <i className='fa fa-paper-plane my-auto' />
             </button>
           </form>
         </div>

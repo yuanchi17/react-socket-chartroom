@@ -1,5 +1,5 @@
 // https://socket.io/docs/v4/server-initialization/#with-an-http-server
-const { createServer } = require("http") 
+const { createServer } = require("http")
 const { Server } = require("socket.io")
 
 const PORT = process.env.PORT || 4000

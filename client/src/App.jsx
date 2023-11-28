@@ -9,18 +9,22 @@ import socket from './socket'
 
 // https://socket.io/how-to/use-with-react
 // https://github.com/socketio/socket.io-client/issues/1492
-export default function App () {
+export default function App() {
   const { user } = useApp()
   const [isConnected, setIsConnected] = useState(socket.connected)
-  
+
   useEffect(() => {
     // console.log('socket:', socket)
     if (!socket) return
-    
-    const onConnect = () => { setIsConnected(true) }
-    const onDisconnect = () => { setIsConnected(false) }
 
-    socket.on('connect',()=>{
+    const onConnect = () => {
+      setIsConnected(true)
+    }
+    const onDisconnect = () => {
+      setIsConnected(false)
+    }
+
+    socket.on('connect', () => {
       console.log(`socket.io-client, id: ${socket.id}`)
       onConnect()
     })
@@ -34,10 +38,7 @@ export default function App () {
 
   return (
     <div className="App container pt-3">
-      { isConnected
-        ? _.isEmpty(user) ? <Login /> : <Chatroom />
-        : <ConnectionState isConnected={isConnected}/>
-      }
+      {isConnected ? _.isEmpty(user) ? <Login /> : <Chatroom /> : <ConnectionState isConnected={isConnected} />}
     </div>
   )
 }

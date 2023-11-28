@@ -1,4 +1,3 @@
-
 export function ConnectionState({ isConnected }) {
-  return <p>Connection State: {isConnected}</p>;
+  return <p>Connection State: {isConnected}</p>
 }

@@ -5,12 +5,8 @@ import { useImmerReducer } from 'use-immer'
 
 const appContextDefaultValue = {
   user: {},
-  otherUsers: [
-    // { id: '', img: '', name: '', intro: ''}
-  ],
-  msgs: [
-    // { type: '', time: '', userId: '', text: '' },
-  ],
+  otherUsers: [], // { id: '', img: '', name: '', intro: ''}[]
+  msgs: [], // { type: '', time: '', userId: '', text: '' }[]
 }
 
 const AppContext = createContext(undefined)
@@ -21,20 +17,21 @@ const reducer = (draft, action) => {
     case 'userLogin':
       draft.user = action.payload
       break
-    case 'addOtherUser':
+    case 'addOtherUser': {
       const newUser = action.payload
       const currentOtherUsers = draft.otherUsers
-      if (newUser.id === draft.user.id) return 
-      if (_.find(currentOtherUsers, ['id', newUser.id])) return  // 已經有顯示的成員就不用再新增
+      if (newUser.id === draft.user.id) return
+      if (_.find(currentOtherUsers, ['id', newUser.id])) return // 已經有顯示的成員就不用再新增
       draft.otherUsers.push({ ...newUser, connect: true })
       break
+    }
     case 'otherUserLogout':
       draft.otherUsers = draft.otherUsers.map(user => ({
         ...user,
         connect: user.connect ? user.id !== action.payload : false,
       }))
       break
-    case 'sendMsg':
+    case 'sendMsg': {
       const user = action.payload.user
       draft.msgs.push({
         text: action.payload.msg,
@@ -43,6 +40,7 @@ const reducer = (draft, action) => {
         userId: user.id,
       })
       break
+    }
     case 'sendMsgAlert':
       draft.msgs.push({
         text: action.payload,
@@ -76,4 +74,3 @@ const useApp = () => {
 
 // eslint-disable-next-line react-refresh/only-export-components
 export { AppContext, AppContextProvider, appContextDefaultValue, useApp }
-

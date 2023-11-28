@@ -4,16 +4,13 @@ const ChatOther = ({ msg, user }) => {
   const photo = `https://i.imgur.com/${user.img}.png`
   return (
     <div className="chat px-2 py-1">
-      {photo? 
+      {photo ? (
         <div className="img-area">
-          <img
-            className="img-fluid mt-1"
-            src={`https://i.imgur.com/${user.img}.png`}
-            alt="other"
-            ></img>
+          <img className="img-fluid mt-1" src={`https://i.imgur.com/${user.img}.png`} alt="other" />
         </div>
-        : <></>
-      }
+      ) : (
+        <></>
+      )}
       <div className="msg-area mx-0 p-1 pl-2 text-left">
         <small className="m-0 mb-1 name">{user.name}</small>
         <p className="m-0 p-2 text-wrap msg">{msg.text}</p>

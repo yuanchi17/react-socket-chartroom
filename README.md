@@ -5,18 +5,18 @@
 ## Demo
 
 ```
-# 啟動 server
+# 安裝套件
 yarn install
-yarn start
+
+# 啟動 server
+yarn start-server
 
 # 開啟畫面
-cd client/
-
-yarn install
-yarn start
+yarn start-web
 ```
 
 ## 參考
+
 - [Vite.js](https://vitejs.dev/config/)
 - [Socker.io](https://socket.io/docs/v4/)
 - [Socker.io - How to use with React](https://socket.io/how-to/use-with-react)

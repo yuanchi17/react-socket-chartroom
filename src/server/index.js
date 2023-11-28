@@ -1,12 +1,11 @@
 // https://socket.io/docs/v4/server-initialization/#with-an-http-server
-const { createServer } = require("http")
-const { Server } = require("socket.io")
+const { createServer } = require('http')
+const { Server } = require('socket.io')
 
-const PORT = process.env.PORT || 4000
 const httpServer = createServer()
 const io = new Server(httpServer, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: 'http://localhost:3000',
   },
 })
 
@@ -17,7 +16,7 @@ io.on('connection', socket => {
 
   socket.on('user-login', user => {
     if (isAdded) return
-     // 需更新成員名單
+    // 需更新成員名單
     socket.userName = user.name
     socket.broadcast.emit('new-user-join', user)
     isAdded = true
@@ -38,6 +37,6 @@ io.on('connection', socket => {
   })
 })
 
-httpServer.listen(PORT, () => {
-  console.log(`httpServer listening on ${PORT}`)
+httpServer.listen(4000, () => {
+  console.log('httpServer listening on PORT: 4000')
 })

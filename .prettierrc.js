@@ -7,5 +7,9 @@ module.exports = {
   endOfLine: 'lf',
   arrowParens: 'avoid',
   useTabs: false,
+  jsxSingleQuote: true,
+  bracketSpacing: true,
+  bracketLine: false,
+  arrowParens: 'avoid',
 }
 

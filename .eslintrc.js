@@ -1,36 +1,34 @@
 module.exports = {
-  ignorePatterns: ['**/dist/'],
   env: {
-    es6: true,
-    jest: true,
-    node: true,
     browser: true,
+    es2020: true,
+    node: true,
   },
-  extends: [
-    'standard',
-    'eslint:recommended',
-    'plugin:react/recommended',
-  ],
-  globals: {
-    Atomics: 'readonly',
-    SharedArrayBuffer: 'readonly',
-  },
+  extends: ['eslint:recommended', 'plugin:react-hooks/recommended', 'plugin:prettier/recommended'],
+  parser: '@babel/eslint-parser',
   parserOptions: {
-    ecmaVersion: 2018,
+    ecmaVersion: 'latest',
     sourceType: 'module',
+    requireConfigFile: false,
+    babelOptions: {
+      presets: ['@babel/preset-react'],
+    },
   },
+  settings: {
+    react: {
+      version: 'detect', // React version. "detect" automatically picks the version you have installed.
+    },
+  },
+  plugins: ['react', 'react-refresh', 'react-hooks'],
   rules: {
-    'no-return-await': 0, // 0 = off, 1 = warn, 2 = error
-    'react/display-name': 0,
-    'react/jsx-uses-react': 2,
-    'react/jsx-uses-vars': 2,
-    'react/prop-types': 0,
-    'comma-dangle': ['error', {
-      arrays: 'always-multiline',
-      objects: 'always-multiline',
-      imports: 'always-multiline',
-      exports: 'always-multiline',
-      functions: 'only-multiline',
-    }],
+    'react-refresh/only-export-components': 'warn',
+    'react-hooks/rules-of-hooks': 'warn', // 檢查 Hook 的規則
+    'react-hooks/exhaustive-deps': 'off', // 檢查 effect 的相依性
+    'no-unused-vars': 'off',
+    // note you must disable the base rule as it can report incorrect errors
+    'no-use-before-define': 'off',
+    // '@typescript-eslint/no-use-before-define': 'off',
+    'react/self-closing-comp': ['error', { component: true, html: true }],
+    'react/display-name': 'off',
   },
 }

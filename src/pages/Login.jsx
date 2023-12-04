@@ -31,7 +31,7 @@ const Login = () => {
       <h2 className='mb-3'>即時聊天室</h2>
 
       {/* <Grid container direction='column' justifyContent='center' alignItems='center'>
-        <TextField error id='outlined-error' label='Error' defaultValue='Hello World' />
+        <TextField error id='outlined-error' size='small' label='Error' defaultValue='Hello World' />
       </Grid> */}
 
       {imgs.map(img => (

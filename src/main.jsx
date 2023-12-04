@@ -15,4 +15,4 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <App />
     </AppContextProvider>
   </React.StrictMode>
-  )
+)

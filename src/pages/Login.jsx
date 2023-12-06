@@ -1,89 +1,122 @@
-// import { Grid, TextField } from '@mui/material'
+import { Box, Button, Grid, Step, StepLabel, Stepper, TextField } from '@mui/material'
 import { clsx } from 'clsx'
 import React, { useState } from 'react'
+import { Controller, useForm } from 'react-hook-form'
 import { useApp } from '../context/appContext'
 import socket from '../socket'
+
+const userData = {
+  img: '',
+  intro: '',
+  name: '',
+}
 
 const Login = () => {
   const { dispatch } = useApp()
 
-  const [page, setPage] = useState('name')
-  const [user, setUser] = useState({
-    img: '',
-    intro: '',
-    name: '',
-  })
+  const steps = ['請選擇一個頭像', '說說你是誰']
   const imgs = ['yCC8VdH', 'Xee8Yda', 'ZelpWqC', 'ysk042a']
+  const [activeStep, setActiveStep] = useState(0)
+  const [user, setUser] = useState(userData)
 
-  const btnName = () => {
-    console.log(user)
-    if (!user.name || !user.img) return
-    setPage('intro')
+  const { control, handleSubmit, setValue } = useForm({
+    defaultValues: userData,
+  })
+
+  const onSubmit = data => {
+    setUser(data)
+    if (activeStep !== 1) return
+    if (!data.name) return
+    dispatch({ type: 'userLogin', payload: { ...data, id: socket.id } })
   }
 
-  const btnLogin = () => {
-    if (!user) return
-    dispatch({ type: 'userLogin', payload: { ...user, id: socket.id } })
+  const handleNext = () => {
+    if (!user.img && !user.name) return
+    setActiveStep(activeStep => activeStep + 1)
+  }
+
+  const handleBack = () => {
+    setActiveStep(activeStep => activeStep - 1)
   }
 
   return (
     <div>
       <h2 className='mb-3'>即時聊天室</h2>
 
-      {/* <Grid container direction='column' justifyContent='center' alignItems='center'>
-        <TextField error id='outlined-error' size='small' label='Error' defaultValue='Hello World' />
-      </Grid> */}
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Grid container direction='column' justifyContent='center' alignItems='center'>
+          <Box sx={{ width: '60%', mb: 3 }}>
+            <Stepper activeStep={activeStep} alternativeLabel>
+              {steps.map(label => (
+                <Step key={label}>
+                  <StepLabel>{label}</StepLabel>
+                </Step>
+              ))}
+            </Stepper>
+          </Box>
 
-      {imgs.map(img => (
-        <button
-          className={clsx('btn btn-img m-2 p-0', user.img === img && 'select-img')}
-          key={img}
-          onClick={() => setUser({ ...user, img })}
-        >
-          <img className='w-100 rounded' src={`https://i.imgur.com/${img}.png`} />
-        </button>
-      ))}
-      <form
-        className='input-area my-2'
-        onSubmit={e => {
-          e.preventDefault()
-          btnName()
-        }}
-      >
-        <div className='input-group flex-nowrap'>
-          <input
-            autoFocus
-            className='form-control m-1'
-            placeholder='請輸入暱稱'
-            type='text'
-            value={user.name}
-            maxLength='20'
-            onChange={e => setUser({ ...user, name: e.target.value })}
-          />
-        </div>
+          {activeStep === 0 ? (
+            <>
+              <Grid>
+                {imgs.map(img => (
+                  <button
+                    className={clsx('btn btn-img m-2 p-0', user.img === img && 'select-img')}
+                    key={img}
+                    onClick={() => {
+                      setValue('img', img)
+                    }}
+                  >
+                    <img className='w-100 rounded' src={`https://i.imgur.com/${img}.png`} />
+                  </button>
+                ))}
+              </Grid>
+              <Button variant='contained' onClick={handleNext} sx={{ mt: 3 }}>
+                下一步
+              </Button>
+            </>
+          ) : (
+            <>
+              <Controller
+                name='name'
+                control={control}
+                render={({ field }) => (
+                  <TextField
+                    sx={{ width: '60%' }}
+                    id='input-name'
+                    size='small'
+                    margin='normal'
+                    label='請輸入暱稱'
+                    {...field}
+                  />
+                )}
+              />
+
+              <Controller
+                name='intro'
+                control={control}
+                render={({ field }) => (
+                  <TextField
+                    sx={{ width: '60%' }}
+                    id='input-intro'
+                    size='small'
+                    margin='normal'
+                    label='簡單介紹自己'
+                    {...field}
+                  />
+                )}
+              />
+              <Grid>
+                <Button variant='contained' onClick={handleBack} sx={{ mt: 3, mr: 1 }}>
+                  上一步
+                </Button>
+                <Button variant='contained' type='submit' sx={{ mt: 3 }}>
+                  進入聊天室
+                </Button>
+              </Grid>
+            </>
+          )}
+        </Grid>
       </form>
-      {page === 'name' ? (
-        <></>
-      ) : (
-        <form
-          className='input-area'
-          onSubmit={e => {
-            e.preventDefault()
-            btnLogin()
-          }}
-        >
-          <div className='input-group flex-nowrap'>
-            <input
-              autoFocus
-              className='form-control m-1'
-              placeholder={`Hi ${user.name}，介紹一下自己吧 :D`}
-              type='text'
-              value={user.intro}
-              onChange={e => setUser({ ...user, intro: e.target.value })}
-            />
-          </div>
-        </form>
-      )}
     </div>
   )
 }

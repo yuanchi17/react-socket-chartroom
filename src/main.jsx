@@ -10,9 +10,9 @@ import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <AppContextProvider>
-      <App />
-    </AppContextProvider>
-  </React.StrictMode>
+  // <React.StrictMode> 因為在本機執行，會導致 useEffect 執行兩次，故註解
+  <AppContextProvider>
+    <App />
+  </AppContextProvider>
+  // </React.StrictMode>
 )

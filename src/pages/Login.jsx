@@ -1,124 +1,82 @@
-import { Box, Button, Grid, Step, StepLabel, Stepper, TextField } from '@mui/material'
-import { clsx } from 'clsx'
-import React, { useState } from 'react'
+import { Button, Grid, Paper, Step, StepLabel, Stepper, TextField, Typography } from '@mui/material'
+import React from 'react'
 import { Controller, useForm } from 'react-hook-form'
+import SelectImg from '../components/Login/SelectImg'
 import { useApp } from '../context/appContext'
 import socket from '../socket'
 
-const userData = {
-  img: '',
-  intro: '',
-  name: '',
-}
-
 const Login = () => {
-  const { dispatch } = useApp()
+  const { dispatch, activeStep } = useApp()
 
-  const steps = ['請選擇一個頭像', '說說你是誰']
-  const imgs = ['yCC8VdH', 'Xee8Yda', 'ZelpWqC', 'ysk042a']
-  const [activeStep, setActiveStep] = useState(0)
-  const [user, setUser] = useState(userData)
-
-  const { control, handleSubmit, setValue } = useForm({
-    defaultValues: userData,
+  const steps = ['請選擇頭像', '說說你是誰']
+  const { control, handleSubmit } = useForm({
+    defaultValues: {
+      intro: '',
+      name: '',
+    },
   })
 
   const onSubmit = data => {
-    setUser(data)
-    if (activeStep !== 1) return
-    if (!data.name) return
-    dispatch({ type: 'userLogin', payload: { ...data, id: socket.id } })
-  }
-
-  const handleNext = () => {
-    if (!user.img && !user.name) return
-    setActiveStep(activeStep => activeStep + 1)
+    if (activeStep !== 1 || !data.name) return
+    dispatch({ type: 'setUser', payload: { ...data, id: socket.id } })
   }
 
   const handleBack = () => {
-    setActiveStep(activeStep => activeStep - 1)
+    dispatch({ type: 'setActiveStep', payload: activeStep - 1 })
   }
 
   return (
-    <div>
-      <h2 className='mb-3'>即時聊天室</h2>
+    <Grid container direction='column' justifyContent='center' alignItems='center' sx={{ height: '100vh' }}>
+      <Typography variant='h4' gutterBottom>
+        即時聊天室
+      </Typography>
 
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Grid container direction='column' justifyContent='center' alignItems='center'>
-          <Box sx={{ width: '60%', mb: 3 }}>
-            <Stepper activeStep={activeStep} alternativeLabel>
-              {steps.map(label => (
-                <Step key={label}>
-                  <StepLabel>{label}</StepLabel>
-                </Step>
-              ))}
-            </Stepper>
-          </Box>
-
-          {activeStep === 0 ? (
-            <>
-              <Grid>
-                {imgs.map(img => (
-                  <button
-                    className={clsx('btn btn-img m-2 p-0', user.img === img && 'select-img')}
-                    key={img}
-                    onClick={() => {
-                      setValue('img', img)
-                    }}
-                  >
-                    <img className='w-100 rounded' src={`https://i.imgur.com/${img}.png`} />
-                  </button>
+      <Paper elevation={6} sx={{ padding: '40px' }}>
+        <form onSubmit={handleSubmit(onSubmit)} style={{ width: '60vw' }}>
+          <Grid container direction='column' justifyContent='center' alignItems='center' spacing={2}>
+            <Grid item sx={{ width: '100%' }}>
+              <Stepper activeStep={activeStep} alternativeLabel sx={{ width: '100%' }}>
+                {steps.map(label => (
+                  <Step key={label}>
+                    <StepLabel>{label}</StepLabel>
+                  </Step>
                 ))}
-              </Grid>
-              <Button variant='contained' onClick={handleNext} sx={{ mt: 3 }}>
-                下一步
-              </Button>
-            </>
-          ) : (
-            <>
-              <Controller
-                name='name'
-                control={control}
-                render={({ field }) => (
-                  <TextField
-                    sx={{ width: '60%' }}
-                    id='input-name'
-                    size='small'
-                    margin='normal'
-                    label='請輸入暱稱'
-                    {...field}
-                  />
-                )}
-              />
+              </Stepper>
+            </Grid>
 
-              <Controller
-                name='intro'
-                control={control}
-                render={({ field }) => (
-                  <TextField
-                    sx={{ width: '60%' }}
-                    id='input-intro'
-                    size='small'
-                    margin='normal'
-                    label='簡單介紹自己'
-                    {...field}
-                  />
-                )}
-              />
-              <Grid>
-                <Button variant='contained' onClick={handleBack} sx={{ mt: 3, mr: 1 }}>
-                  上一步
-                </Button>
-                <Button variant='contained' type='submit' sx={{ mt: 3 }}>
-                  進入聊天室
-                </Button>
-              </Grid>
-            </>
-          )}
-        </Grid>
-      </form>
-    </div>
+            {activeStep === 0 ? (
+              <SelectImg />
+            ) : (
+              <>
+                <Grid item>
+                  <ControllerTextFiels control={control} name='name' label='請輸入暱稱' />
+                </Grid>
+                <Grid item>
+                  <ControllerTextFiels control={control} name='intro' label='簡單介紹自己' />
+                </Grid>
+                <Grid item>
+                  <Button variant='contained' onClick={handleBack} sx={{ mt: 3, mr: 1 }}>
+                    上一步
+                  </Button>
+                  <Button variant='contained' type='submit' sx={{ mt: 3 }}>
+                    進入聊天室
+                  </Button>
+                </Grid>
+              </>
+            )}
+          </Grid>
+        </form>
+      </Paper>
+    </Grid>
   )
 }
+
+const ControllerTextFiels = ({ control, name, label }) => (
+  <Controller
+    name={name}
+    control={control}
+    render={({ field }) => <TextField fullWidth size='small' margin='normal' label={label} {...field} />}
+  />
+)
 
 export default Login

@@ -1,3 +1,5 @@
+import { Box } from '@mui/material'
+import { ThemeProvider, createTheme } from '@mui/material/styles'
 import _ from 'lodash'
 import React, { useEffect, useState } from 'react'
 import { ConnectionState } from './components/ConnectState'
@@ -6,6 +8,7 @@ import './index.scss'
 import Chatroom from './pages/Chatroom'
 import Login from './pages/Login'
 import socket from './socket'
+import COLOR from './utils/theme-color'
 
 // https://socket.io/how-to/use-with-react
 // https://github.com/socketio/socket.io-client/issues/1492
@@ -36,9 +39,18 @@ export default function App() {
     }
   }, [])
 
+  const theme = createTheme(COLOR)
+
   return (
-    <div className='App container pt-3'>
-      {isConnected ? _.isEmpty(user) ? <Login /> : <Chatroom /> : <ConnectionState isConnected={isConnected} />}
-    </div>
+    <ThemeProvider theme={theme}>
+      <Box
+        sx={{
+          height: '100vh',
+          background: theme => `linear-gradient(${theme.primary.light},${theme.success.light})`,
+        }}
+      >
+        {isConnected ? _.isEmpty(user.name) ? <Login /> : <Chatroom /> : <ConnectionState isConnected={isConnected} />}
+      </Box>
+    </ThemeProvider>
   )
 }

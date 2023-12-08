@@ -12,7 +12,7 @@ const UserChat = ({ msg, user }) => {
       </Typography>
       <Box
         sx={{
-          border: theme => `solid 1px ${theme.primary.light}`,
+          border: theme => `solid 1px ${theme.blue.light}`,
           width: 'fit-content',
           marginLeft: 'auto',
           padding: '5px 15px',

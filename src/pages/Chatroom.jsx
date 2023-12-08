@@ -14,13 +14,13 @@ const TextFieldStyled = styled(TextField)(({ theme }) => ({
   boxShadow: 'none',
   '& .MuiOutlinedInput-root': {
     '& fieldset': {
-      borderColor: theme.primary.main,
+      borderColor: theme.blue.main,
     },
     '&:hover fieldset': {
-      borderColor: theme.primary.main,
+      borderColor: theme.blue.main,
     },
     '&.Mui-focused fieldset': {
-      borderColor: theme.primary.main,
+      borderColor: theme.blue.main,
     },
   },
 }))
@@ -99,7 +99,7 @@ const Chatroom = () => {
           <Grid item xs={12} sm={9} sx={{ height: '100%' }}>
             <Grid container direction='column' sx={{ height: '100%' }}>
               <Grid id='msg-list' item md={10} sx={{ overflow: 'auto', padding: '15px' }}>
-                <Grid container direction='column' spacing={2} sx={{ overflowWrap: 'anywhere' }}>
+                <Grid container direction='column' sx={{ overflowWrap: 'anywhere' }}>
                   {msgs.map((msg, index) => {
                     switch (msg.type) {
                       case 'user':
@@ -134,7 +134,7 @@ const Chatroom = () => {
                       />
                     </Grid>
                     <Grid item md={1}>
-                      <IconButton color='primary' aria-label='send message'>
+                      <IconButton color='blue' aria-label='send message'>
                         <SendIcon />
                       </IconButton>
                     </Grid>

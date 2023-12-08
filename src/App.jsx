@@ -46,11 +46,10 @@ export default function App() {
       <Box
         sx={{
           height: '100vh',
-          background: theme => `linear-gradient(${theme.primary.light},${theme.success.light})`,
+          background: theme => `linear-gradient(${theme.green.light},${theme.yellow.light})`,
         }}
       >
-        <Chatroom />
-        {/* {isConnected ? _.isEmpty(user.name) ? <Login /> : <Chatroom /> : <ConnectionState isConnected={isConnected} />} */}
+        {isConnected ? _.isEmpty(user.name) ? <Login /> : <Chatroom /> : <ConnectionState isConnected={isConnected} />}
       </Box>
     </ThemeProvider>
   )

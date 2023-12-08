@@ -14,7 +14,7 @@ const OtherMemberChat = ({ msg, member }) => {
   return (
     <Grid item sx={{ display: 'flex' }}>
       <ImageSrc style={{ backgroundImage: `url(https://i.imgur.com/${member.img}.png)` }} />
-      <Box sx={{ display: 'flex', flexFlow: 'column', maxWidth: '80%' }}>
+      <Box sx={{ display: 'flex', flexFlow: 'column', maxWidth: '80%', marginLeft: '10px' }}>
         <Typography variant='body2' gutterBottom>
           {member.name}
           <Typography variant='caption' sx={{ marginLeft: '5px' }}>

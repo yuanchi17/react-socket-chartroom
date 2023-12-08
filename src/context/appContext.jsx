@@ -5,54 +5,9 @@ import { useImmerReducer } from 'use-immer'
 
 const appContextDefaultValue = {
   activeStep: 0,
-  // user: {},
-  // otherUsers: [], // { id: '', img: '', name: '', intro: ''}[]
-  // msgs: [], // { type: '', time: '', userId: '', text: '' }[]
-  // NOTE: Dev Use
-  user: { id: 'test', img: 'yCC8VdH', name: 'yuan', intro: '123125645646546546' },
-  otherUsers: [
-    { id: '0', img: 'yCC8VdH', name: 'test-user-1', intro: '123125645646546546', connect: true },
-    {
-      id: 'other-user-2',
-      img: 'yCC8VdH',
-      name: 'test-user-2',
-      connect: false,
-      intro: '123125645646546546123125645646546546123125645646546546123125645646546546123125645646546546',
-    },
-    {
-      id: '1',
-      img: 'yCC8VdH',
-      name: 'yuan-1',
-      intro: 'asdghhsagd',
-      connect: false,
-    },
-    { id: '2', img: 'yCC8VdH', name: 'yuan', intro: '123125645646546546', connect: false },
-    { id: '3', img: 'yCC8VdH', name: 'yuan', intro: '123125645646546546', connect: false },
-    { id: '4', img: 'yCC8VdH', name: 'yuan', intro: '123125645646546546', connect: false },
-  ],
-  msgs: [
-    {
-      type: 'user',
-      time: '17:11',
-      userId: '',
-      text: 'asdghhsagdud',
-    },
-    { type: 'other', time: '17:11', userId: '0', text: 'asdghhsagd' },
-    { type: 'alert', time: '17:11', userId: '', text: '歡迎 XXX 加入聊天室' },
-    { type: 'other', time: '17:11', userId: '0', text: 'lalalala' },
-    {
-      type: 'other',
-      time: '17:11',
-      userId: '1',
-      text: '123125645646546546123125645646546546123125645646546546123125645646546546123125645646546546',
-    },
-    {
-      type: 'other',
-      time: '17:11',
-      userId: '1',
-      text: '123125645646546546123125645646546546123125645646546546123125645646546546123125645646546546',
-    },
-  ],
+  user: {},
+  otherUsers: [], // { id: '', img: '', name: '', intro: ''}[]
+  msgs: [], // { type: '', time: '', userId: '', text: '', connect: boolean }[]
 }
 
 const AppContext = createContext(undefined)

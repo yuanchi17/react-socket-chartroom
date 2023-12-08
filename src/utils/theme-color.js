@@ -5,6 +5,12 @@ const COLOR = {
     dark: '#297c80',
     contrastText: 'white',
   },
+  gray: {
+    main: '#acb7be81',
+    disconnect: '#acb7be30',
+    disconnectName: '#adb5bd',
+    contrastText: 'white',
+  },
   yellow: {
     main: '#ffc107',
     contrastText: 'white',

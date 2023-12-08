@@ -23,7 +23,7 @@ const OtherMemberChat = ({ msg, member }) => {
         </Typography>
         <Box
           sx={{
-            border: theme => `solid 1px ${theme.yellow.main}`,
+            border: theme => `solid 1.8px ${theme.green.main}`,
             width: 'fit-content',
             padding: '5px 15px',
             borderRadius: '0 5px 5px 5px',

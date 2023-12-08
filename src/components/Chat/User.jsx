@@ -2,7 +2,6 @@ import { Box, Grid, Typography } from '@mui/material'
 import React from 'react'
 
 const UserChat = ({ msg, user }) => {
-  console.log(msg)
   return (
     <Grid item sx={{ display: 'flex', flexFlow: 'column', textAlign: 'end' }}>
       <Typography variant='body2' gutterBottom>

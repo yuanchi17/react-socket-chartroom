@@ -1,4 +1,6 @@
-import { Grid, Paper, Typography } from '@mui/material'
+import styled from '@emotion/styled'
+import SendIcon from '@mui/icons-material/Send'
+import { Grid, IconButton, Paper, TextField, Typography } from '@mui/material'
 import _ from 'lodash'
 import React, { useEffect, useState } from 'react'
 import AlertChat from '../components/Chat/Alert'
@@ -7,6 +9,21 @@ import UserChat from '../components/Chat/User'
 import MemberList from '../components/Member/List'
 import { useApp } from '../context/appContext'
 import socket from '../socket'
+
+const TextFieldStyled = styled(TextField)(({ theme }) => ({
+  boxShadow: 'none',
+  '& .MuiOutlinedInput-root': {
+    '& fieldset': {
+      borderColor: theme.primary.main,
+    },
+    '&:hover fieldset': {
+      borderColor: theme.primary.main,
+    },
+    '&.Mui-focused fieldset': {
+      borderColor: theme.primary.main,
+    },
+  },
+}))
 
 const Chatroom = () => {
   const { dispatch, user, msgs, otherUsers } = useApp()
@@ -40,7 +57,7 @@ const Chatroom = () => {
 
   useEffect(() => {
     // 有訊息新增時滾輪自動到最底部
-    const d = document.getElementById('chat-view')
+    const d = document.getElementById('msg-list')
     d.scrollTop = d.scrollHeight
   }, [msgs])
 
@@ -81,7 +98,7 @@ const Chatroom = () => {
           </Grid>
           <Grid item xs={12} sm={9} sx={{ height: '100%' }}>
             <Grid container direction='column' sx={{ height: '100%' }}>
-              <Grid item md={10} id='chat-view' sx={{ overflow: 'auto', padding: '15px' }}>
+              <Grid id='msg-list' item md={10} sx={{ overflow: 'auto', padding: '15px' }}>
                 <Grid container direction='column' spacing={2} sx={{ overflowWrap: 'anywhere' }}>
                   {msgs.map((msg, index) => {
                     switch (msg.type) {
@@ -97,52 +114,33 @@ const Chatroom = () => {
                   })}
                 </Grid>
               </Grid>
-              <Grid item md={2}>
+              <Grid item md={2} sx={{ padding: 2 }}>
                 <form
-                  className='input-area mt-auto mb-1'
+                  className='input-area mt-auto'
                   onSubmit={e => {
                     e.preventDefault()
                     btnSend()
                   }}
                 >
-                  <div className='input-group flex-nowrap'>
-                    <input
-                      autoFocus
-                      className='form-control m-1'
-                      placeholder='輸入訊息'
-                      type='text'
-                      value={inputMsg}
-                      onChange={e => setInputMsg(e.target.value)}
-                    />
-                  </div>
-                  <button type='button' className='btn px-2 input-group-prepend' onClick={btnSend}>
-                    <i className='fa fa-paper-plane my-auto' />
-                  </button>
+                  <Grid container spacing={2} justifyContent='center' alignItems='center'>
+                    <Grid item md={11}>
+                      <TextFieldStyled
+                        fullWidth
+                        id='outlined-size-small'
+                        placeholder='輸入訊息'
+                        size='small'
+                        value={inputMsg}
+                        onChange={e => setInputMsg(e.target.value)}
+                      />
+                    </Grid>
+                    <Grid item md={1}>
+                      <IconButton color='primary' aria-label='send message'>
+                        <SendIcon />
+                      </IconButton>
+                    </Grid>
+                  </Grid>
                 </form>
               </Grid>
-              {/* <div className='chat-area pb-2'>
-                <form
-                  className='input-area mt-auto mb-1'
-                  onSubmit={e => {
-                    e.preventDefault()
-                    btnSend()
-                  }}
-                >
-                  <div className='input-group flex-nowrap'>
-                    <input
-                      autoFocus
-                      className='form-control m-1'
-                      placeholder='輸入訊息'
-                      type='text'
-                      value={inputMsg}
-                      onChange={e => setInputMsg(e.target.value)}
-                    />
-                  </div>
-                  <button type='button' className='btn px-2 input-group-prepend' onClick={btnSend}>
-                    <i className='fa fa-paper-plane my-auto' />
-                  </button>
-                </form>
-              </div> */}
             </Grid>
           </Grid>
         </Grid>

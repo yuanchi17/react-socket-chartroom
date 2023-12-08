@@ -15,6 +15,10 @@ const COLOR = {
     main: '#ffc107',
     contrastText: 'white',
   },
+  green: {
+    main: '#9ad29c',
+    contrastText: 'white',
+  },
   secondary: {
     light: '#33cf79',
     main: '#00c358',

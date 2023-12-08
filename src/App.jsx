@@ -49,7 +49,8 @@ export default function App() {
           background: theme => `linear-gradient(${theme.primary.light},${theme.success.light})`,
         }}
       >
-        {isConnected ? _.isEmpty(user.name) ? <Login /> : <Chatroom /> : <ConnectionState isConnected={isConnected} />}
+        <Chatroom />
+        {/* {isConnected ? _.isEmpty(user.name) ? <Login /> : <Chatroom /> : <ConnectionState isConnected={isConnected} />} */}
       </Box>
     </ThemeProvider>
   )

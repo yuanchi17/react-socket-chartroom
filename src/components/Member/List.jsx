@@ -24,7 +24,7 @@ const MemberList = () => {
   const { user, otherUsers } = useApp()
 
   return (
-    <Grid container direction='column' sx={{ overflow: 'auto' }}>
+    <Grid container direction='column' sx={{ overflow: 'auto', height: '100%' }}>
       <Grid item xs={12} sm={3} sx={{ borderBottom: theme => `solid 1px ${theme.gray.main}`, padding: '10px' }}>
         <CardStyled sx={{ width: '100%' }}>
           <CardHeader
@@ -40,7 +40,7 @@ const MemberList = () => {
         </CardStyled>
       </Grid>
 
-      <Grid id='member-other-list' item xs={12} sm={9} sx={{ overflow: 'auto', maxHeight: '60vh', padding: '10px' }}>
+      <Grid id='member-other-list' item xs={12} sm={9} sx={{ overflow: 'auto', padding: '10px' }}>
         <Grid container spacing={2}>
           {_.orderBy(otherUsers, ['connect'], ['desc']).map(member => (
             <Grid item key={member.id} sx={{ width: '100%' }}>

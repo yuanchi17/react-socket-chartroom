@@ -1,9 +1,9 @@
 import { Grid, Paper, Typography } from '@mui/material'
 import _ from 'lodash'
 import React, { useEffect, useState } from 'react'
-import ChatAlert from '../components/ChatAlert'
-import ChatOther from '../components/ChatOther'
-import ChatUser from '../components/ChatUser'
+import AlertChat from '../components/Chat/Alert'
+import OtherMemberChat from '../components/Chat/OtherMember'
+import UserChat from '../components/Chat/User'
 import MemberList from '../components/Member/List'
 import { useApp } from '../context/appContext'
 import socket from '../socket'
@@ -65,7 +65,7 @@ const Chatroom = () => {
       sx={{ minHeight: '100vh', maxHeight: '100vh' }}
     >
       <Typography variant='h4' gutterBottom>
-        Test-Chart-Room
+        Test-Chat-Room
         {/* 即時聊天室 */}
       </Typography>
 
@@ -79,44 +79,71 @@ const Chatroom = () => {
           >
             <MemberList />
           </Grid>
-          <Grid item xs={12} sm={9} sx={{ overflowWrap: 'anywhere', minHeight: '100%' }}>
-            <div className='chat-area pb-2'>
-              <div id='chat-view' className='chat-list py-2'>
-                {msgs.map((msg, index) => {
-                  switch (msg.type) {
-                    case 'user':
-                      return <ChatUser msg={msg} key={index} />
-                    case 'other': {
-                      const user = _.find(otherUsers, ['id', msg.userId])
-                      return <ChatOther msg={msg} user={user} key={index} />
+          <Grid item xs={12} sm={9} sx={{ height: '100%' }}>
+            <Grid container direction='column' sx={{ height: '100%' }}>
+              <Grid item md={10} id='chat-view' sx={{ overflow: 'auto', padding: '15px' }}>
+                <Grid container direction='column' spacing={2} sx={{ overflowWrap: 'anywhere' }}>
+                  {msgs.map((msg, index) => {
+                    switch (msg.type) {
+                      case 'user':
+                        return <UserChat msg={msg} user={user} key={index} />
+                      case 'other': {
+                        const member = _.find(otherUsers, ['id', msg.userId])
+                        return <OtherMemberChat msg={msg} member={member} key={index} />
+                      }
+                      default:
+                        return <AlertChat msg={msg} key={index} />
                     }
-                    default:
-                      return <ChatAlert msg={msg} key={index} />
-                  }
-                })}
-              </div>
-              <form
-                className='input-area mt-auto mb-1'
-                onSubmit={e => {
-                  e.preventDefault()
-                  btnSend()
-                }}
-              >
-                <div className='input-group flex-nowrap'>
-                  <input
-                    autoFocus
-                    className='form-control m-1'
-                    placeholder='輸入訊息'
-                    type='text'
-                    value={inputMsg}
-                    onChange={e => setInputMsg(e.target.value)}
-                  />
-                </div>
-                <button type='button' className='btn px-2 input-group-prepend' onClick={btnSend}>
-                  <i className='fa fa-paper-plane my-auto' />
-                </button>
-              </form>
-            </div>
+                  })}
+                </Grid>
+              </Grid>
+              <Grid item md={2}>
+                <form
+                  className='input-area mt-auto mb-1'
+                  onSubmit={e => {
+                    e.preventDefault()
+                    btnSend()
+                  }}
+                >
+                  <div className='input-group flex-nowrap'>
+                    <input
+                      autoFocus
+                      className='form-control m-1'
+                      placeholder='輸入訊息'
+                      type='text'
+                      value={inputMsg}
+                      onChange={e => setInputMsg(e.target.value)}
+                    />
+                  </div>
+                  <button type='button' className='btn px-2 input-group-prepend' onClick={btnSend}>
+                    <i className='fa fa-paper-plane my-auto' />
+                  </button>
+                </form>
+              </Grid>
+              {/* <div className='chat-area pb-2'>
+                <form
+                  className='input-area mt-auto mb-1'
+                  onSubmit={e => {
+                    e.preventDefault()
+                    btnSend()
+                  }}
+                >
+                  <div className='input-group flex-nowrap'>
+                    <input
+                      autoFocus
+                      className='form-control m-1'
+                      placeholder='輸入訊息'
+                      type='text'
+                      value={inputMsg}
+                      onChange={e => setInputMsg(e.target.value)}
+                    />
+                  </div>
+                  <button type='button' className='btn px-2 input-group-prepend' onClick={btnSend}>
+                    <i className='fa fa-paper-plane my-auto' />
+                  </button>
+                </form>
+              </div> */}
+            </Grid>
           </Grid>
         </Grid>
       </Paper>

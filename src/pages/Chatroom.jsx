@@ -134,7 +134,7 @@ const Chatroom = () => {
                       />
                     </Grid>
                     <Grid item md={1}>
-                      <IconButton color='blue' aria-label='send message'>
+                      <IconButton color='primary' aria-label='send message' onClick={btnSend}>
                         <SendIcon />
                       </IconButton>
                     </Grid>

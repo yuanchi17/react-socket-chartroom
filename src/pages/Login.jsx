@@ -1,23 +1,38 @@
+import { yupResolver } from '@hookform/resolvers/yup'
 import { Button, Grid, Paper, Step, StepLabel, Stepper, TextField, Typography } from '@mui/material'
 import React from 'react'
 import { Controller, useForm } from 'react-hook-form'
+import * as yup from 'yup'
 import SelectImg from '../components/Login/SelectImg'
 import { useApp } from '../context/appContext'
 import socket from '../socket'
 
+const schema = yup
+  .object()
+  .shape({
+    name: yup.string().required('請輸入暱稱'),
+    intro: yup.string().optional(),
+  })
+  .required()
+
 const Login = () => {
   const { dispatch, activeStep } = useApp()
-
   const steps = ['請選擇頭像', '說說你是誰']
-  const { control, handleSubmit } = useForm({
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     defaultValues: {
       intro: '',
       name: '',
     },
+    resolver: yupResolver(schema),
   })
 
   const onSubmit = data => {
-    if (activeStep !== 1 || !data.name) return
+    if (activeStep !== 1) return
     dispatch({ type: 'setUser', payload: { ...data, id: socket.id } })
   }
 
@@ -50,6 +65,9 @@ const Login = () => {
               <>
                 <Grid item>
                   <ControllerTextFiels control={control} name='name' label='請輸入暱稱' />
+                  <Typography variant='subtitle2' color='red' sx={{ textAlign: 'end' }}>
+                    {errors?.name?.message}
+                  </Typography>
                 </Grid>
                 <Grid item>
                   <ControllerTextFiels control={control} name='intro' label='簡單介紹自己' />

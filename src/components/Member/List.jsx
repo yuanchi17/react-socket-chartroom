@@ -6,8 +6,9 @@ import OtherMemberCard from './OtherMember'
 import UserMemberCard from './User'
 
 const MemberList = () => {
-  const { user, otherUsers } = useApp()
+  const { otherUsers } = useApp()
 
+  // TODO: RWD
   return (
     <Grid container direction='column' sx={{ overflow: 'auto', height: '100%' }}>
       <Grid item xs={12} sm={3} sx={{ borderBottom: theme => `solid 1px ${theme.gray.main}`, padding: '10px' }}>

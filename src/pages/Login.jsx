@@ -33,7 +33,7 @@ const Login = () => {
 
       <Paper elevation={6} sx={{ padding: '40px' }}>
         <form onSubmit={handleSubmit(onSubmit)} style={{ width: '60vw' }}>
-          <Grid container direction='column' justifyContent='center' alignItems='center' spacing={2}>
+          <Grid container direction='column' justifyContent='center' alignItems='center'>
             <Grid item sx={{ width: '100%' }}>
               <Stepper activeStep={activeStep} alternativeLabel sx={{ width: '100%' }}>
                 {steps.map(label => (

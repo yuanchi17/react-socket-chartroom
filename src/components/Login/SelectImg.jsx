@@ -37,7 +37,7 @@ const SelectImg = () => {
 
   return (
     <>
-      <Grid item>
+      <Grid item sx={{ mt: 3, mb: 3 }}>
         <Grid container justifyContent='center' spacing={{ xs: 1, md: 2 }} columns={4}>
           {imgs.map(img => (
             <Grid item key={img}>

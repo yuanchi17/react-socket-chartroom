@@ -1,9 +1,9 @@
+import OtherMemberCard from '@/components/Member/OtherMember'
+import UserMemberCard from '@/components/Member/User'
+import { useApp } from '@/context/appContext'
 import { Grid } from '@mui/material'
 import _ from 'lodash'
 import React from 'react'
-import { useApp } from '../../context/appContext'
-import OtherMemberCard from './OtherMember'
-import UserMemberCard from './User'
 
 const MemberList = () => {
   const { otherUsers } = useApp()

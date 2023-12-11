@@ -1,8 +1,8 @@
+import { useApp } from '@/context/appContext'
 import { Button, ButtonBase, Grid, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import clsx from 'clsx'
 import React, { useState } from 'react'
-import { useApp } from '../../context/appContext'
 
 const ImageButton = styled(ButtonBase)(({ theme }) => ({
   maxWidth: '60px',

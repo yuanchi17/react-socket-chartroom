@@ -1,8 +1,8 @@
+import { useApp } from '@/context/appContext'
 import styled from '@emotion/styled'
 import { Avatar, Card, CardContent, CardHeader, Typography } from '@mui/material'
 import clsx from 'clsx'
 import React from 'react'
-import { useApp } from '../../context/appContext'
 
 const CardContentStyled = styled(CardContent)({
   '&:last-child': {

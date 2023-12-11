@@ -1,14 +1,14 @@
+import { useApp } from '@/context/appContext'
+import '@/index.scss'
+import Chatroom from '@/pages/Chatroom'
+import Login from '@/pages/Login'
+import NotConnect from '@/pages/NotConnect'
+import socket from '@/socket'
+import COLOR from '@/utils/theme-color'
 import { Box } from '@mui/material'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import _ from 'lodash'
 import React, { useEffect, useState } from 'react'
-import { useApp } from './context/appContext'
-import './index.scss'
-import Chatroom from './pages/Chatroom'
-import Login from './pages/Login'
-import NotConnect from './pages/NotConnect'
-import socket from './socket'
-import COLOR from './utils/theme-color'
 
 // https://socket.io/how-to/use-with-react
 // https://github.com/socketio/socket.io-client/issues/1492

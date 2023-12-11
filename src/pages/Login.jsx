@@ -1,11 +1,11 @@
+import SelectImg from '@/components/Login/SelectImg'
+import { useApp } from '@/context/appContext'
+import socket from '@/socket'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Button, Grid, Paper, Step, StepLabel, Stepper, TextField, Typography } from '@mui/material'
 import React from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import * as yup from 'yup'
-import SelectImg from '../components/Login/SelectImg'
-import { useApp } from '../context/appContext'
-import socket from '../socket'
 
 const schema = yup
   .object()
@@ -32,7 +32,9 @@ const Login = () => {
   })
 
   const onSubmit = data => {
-    if (activeStep !== 1) return
+    console.log(activeStep)
+    console.log(data)
+    // if (activeStep === 1) return
     dispatch({ type: 'setUser', payload: { ...data, id: socket.id } })
   }
 

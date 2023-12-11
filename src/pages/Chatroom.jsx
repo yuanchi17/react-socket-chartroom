@@ -1,14 +1,14 @@
+import AlertChat from '@/components/Chat/Alert'
+import OtherMemberChat from '@/components/Chat/OtherMember'
+import UserChat from '@/components/Chat/User'
+import MemberList from '@/components/Member/List'
+import { useApp } from '@/context/appContext'
+import socket from '@/socket'
 import styled from '@emotion/styled'
 import SendIcon from '@mui/icons-material/Send'
 import { Grid, IconButton, Paper, TextField, Typography } from '@mui/material'
 import _ from 'lodash'
 import React, { useEffect, useState } from 'react'
-import AlertChat from '../components/Chat/Alert'
-import OtherMemberChat from '../components/Chat/OtherMember'
-import UserChat from '../components/Chat/User'
-import MemberList from '../components/Member/List'
-import { useApp } from '../context/appContext'
-import socket from '../socket'
 
 const TextFieldStyled = styled(TextField)(({ theme }) => ({
   boxShadow: 'none',
@@ -98,7 +98,7 @@ const Chatroom = () => {
           </Grid>
           <Grid item xs={12} sm={9} sx={{ height: '100%' }}>
             <Grid container direction='column' sx={{ height: '100%' }}>
-              <Grid id='msg-list' item md={10} sx={{ overflow: 'auto', padding: '15px' }}>
+              <Grid id='msg-list' item sm={10} sx={{ overflow: 'auto', padding: '15px' }}>
                 <Grid container direction='column' sx={{ overflowWrap: 'anywhere' }}>
                   {msgs.map((msg, index) => {
                     switch (msg.type) {
@@ -114,7 +114,7 @@ const Chatroom = () => {
                   })}
                 </Grid>
               </Grid>
-              <Grid item md={2} sx={{ padding: 2 }}>
+              <Grid item sm={2} sx={{ padding: 2 }}>
                 <form
                   className='input-area mt-auto'
                   onSubmit={e => {
@@ -122,8 +122,8 @@ const Chatroom = () => {
                     btnSend()
                   }}
                 >
-                  <Grid container spacing={2} justifyContent='center' alignItems='center'>
-                    <Grid item md={11}>
+                  <Grid container spacing={1} justifyContent='center' alignItems='center'>
+                    <Grid item sm={11}>
                       <TextFieldStyled
                         fullWidth
                         id='outlined-size-small'
@@ -133,7 +133,7 @@ const Chatroom = () => {
                         onChange={e => setInputMsg(e.target.value)}
                       />
                     </Grid>
-                    <Grid item md={1}>
+                    <Grid item sm={1}>
                       <IconButton color='primary' aria-label='send message' onClick={btnSend}>
                         <SendIcon />
                       </IconButton>

@@ -1,7 +1,7 @@
+import App from '@/App'
+import { AppContextProvider } from '@/context/appContext'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App'
-import { AppContextProvider } from './context/appContext'
 // import './index.scss'
 
 import '@fontsource/roboto/300.css'

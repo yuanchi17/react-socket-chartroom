@@ -82,8 +82,7 @@ const Chatroom = () => {
       sx={{ minHeight: '100vh', maxHeight: '100vh' }}
     >
       <Typography variant='h4' gutterBottom>
-        Test-Chat-Room
-        {/* 即時聊天室 */}
+        即時聊天室
       </Typography>
 
       <Paper elevation={6} direction={{ xs: 'column', sm: 'row' }} sx={{ height: '80vh', width: '90vw' }}>

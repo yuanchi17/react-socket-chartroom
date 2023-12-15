@@ -4,6 +4,7 @@ body {
   margin: 0;
 }
 
+#member-all-list,
 #member-other-list,
 #msg-list {
   .time {
@@ -18,6 +19,7 @@ body {
   &::-webkit-scrollbar {
     // 整體的scrollbar樣式
     width: 6px;
+    height: 6px;
     background-color: #f5f5f5;
   }
   &::-webkit-scrollbar-thumb {

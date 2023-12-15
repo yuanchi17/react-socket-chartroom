@@ -25,6 +25,12 @@ const TextFieldStyled = styled(TextField)(({ theme }) => ({
   },
 }))
 
+const TypographyStyled = styled(Typography)({
+  '@media only screen and (max-width: 600px)': {
+    display: 'none',
+  },
+})
+
 const Chatroom = () => {
   const { dispatch, user, msgs, otherUsers } = useApp()
   const [inputMsg, setInputMsg] = useState('')
@@ -81,23 +87,32 @@ const Chatroom = () => {
       alignItems='center'
       sx={{ minHeight: '100vh', maxHeight: '100vh' }}
     >
-      <Typography variant='h4' gutterBottom>
+      <Typography variant='h4' gutterBottom sx={{ display: { xs: 'none', sm: 'initial' } }}>
         即時聊天室
       </Typography>
 
-      <Paper elevation={6} direction={{ xs: 'column', sm: 'row' }} sx={{ height: '80vh', width: '90vw' }}>
-        <Grid container sx={{ height: '100%', minWidth: '100%' }}>
+      <Paper
+        elevation={6}
+        direction={{ xs: 'column', sm: 'row' }}
+        sx={{ height: { xs: '90vh', sm: '80vh' }, width: '90vw' }}
+      >
+        <Grid container direction={{ xs: 'column', sm: 'row' }} sx={{ height: '100%', minWidth: '100%' }}>
           <Grid
             item
-            xs={12}
-            sm={3}
-            sx={{ overflowWrap: 'anywhere', height: '100%', borderRight: theme => `solid 1px ${theme.gray.main}` }}
+            xs={3}
+            sx={{
+              overflowWrap: 'anywhere',
+              height: '100%',
+              borderRight: theme => `solid 1px ${theme.gray.main}`,
+              borderBottom: theme => `solid 1px ${theme.gray.main}`,
+              overflow: 'auto',
+            }}
           >
             <MemberList />
           </Grid>
-          <Grid item xs={12} sm={9} sx={{ height: '100%' }}>
+          <Grid item xs={9} sx={{ height: '100%' }}>
             <Grid container direction='column' sx={{ height: '100%' }}>
-              <Grid id='msg-list' item sm={10} sx={{ overflow: 'auto', padding: '15px' }}>
+              <Grid id='msg-list' item xs={10} sx={{ overflow: 'auto', padding: '15px' }}>
                 <Grid container direction='column' sx={{ overflowWrap: 'anywhere' }}>
                   {msgs.map((msg, index) => {
                     switch (msg.type) {
@@ -113,7 +128,7 @@ const Chatroom = () => {
                   })}
                 </Grid>
               </Grid>
-              <Grid item sm={2} sx={{ padding: 2 }}>
+              <Grid item xs={2} sx={{ padding: 2 }}>
                 <form
                   className='input-area mt-auto'
                   onSubmit={e => {

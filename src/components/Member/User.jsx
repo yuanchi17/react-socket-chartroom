@@ -18,7 +18,7 @@ const UserMemberCard = () => {
   const { user } = useApp()
 
   return (
-    <CardStyled sx={{ width: '100%' }}>
+    <CardStyled sx={{ width: '100%', minWidth: '160px' }}>
       <CardHeader
         sx={{ padding: '5px', paddingBottom: 0 }}
         avatar={<Avatar src={`https://i.imgur.com/${user.img}.png`} />}

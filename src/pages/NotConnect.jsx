@@ -11,7 +11,7 @@ const NotConnect = () => {
 
       <Paper
         elevation={6}
-        sx={{ padding: '40px' }}
+        sx={{ padding: '40px', width: '80%' }}
         className='animate__animated animate__pulse animate__infinite animate__slow'
       >
         <Typography variant='body1'>

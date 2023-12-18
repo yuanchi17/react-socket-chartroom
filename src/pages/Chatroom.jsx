@@ -6,7 +6,7 @@ import { useApp } from '@/context/appContext'
 import socket from '@/socket'
 import styled from '@emotion/styled'
 import SendIcon from '@mui/icons-material/Send'
-import { Grid, IconButton, Paper, TextField, Typography } from '@mui/material'
+import { Box, Grid, IconButton, Paper, TextField, Typography } from '@mui/material'
 import _ from 'lodash'
 import React, { useEffect, useState } from 'react'
 
@@ -24,12 +24,6 @@ const TextFieldStyled = styled(TextField)(({ theme }) => ({
     },
   },
 }))
-
-const TypographyStyled = styled(Typography)({
-  '@media only screen and (max-width: 600px)': {
-    display: 'none',
-  },
-})
 
 const Chatroom = () => {
   const { dispatch, user, msgs, otherUsers } = useApp()
@@ -141,23 +135,24 @@ const Chatroom = () => {
                     btnSend()
                   }}
                 >
-                  <Grid container spacing={1} justifyContent='center' alignItems='center'>
-                    <Grid item sm={11}>
-                      <TextFieldStyled
-                        fullWidth
-                        id='outlined-size-small'
-                        placeholder='輸入訊息'
-                        size='small'
-                        value={inputMsg}
-                        onChange={e => setInputMsg(e.target.value)}
-                      />
-                    </Grid>
-                    <Grid item sm={1}>
-                      <IconButton color='primary' aria-label='send message' onClick={btnSend}>
-                        <SendIcon />
-                      </IconButton>
-                    </Grid>
-                  </Grid>
+                  <Box sx={{ display: 'flex' }}>
+                    <TextFieldStyled
+                      fullWidth
+                      id='outlined-size-small'
+                      placeholder='輸入訊息'
+                      size='small'
+                      value={inputMsg}
+                      onChange={e => setInputMsg(e.target.value)}
+                    />
+                    <IconButton
+                      color='primary'
+                      aria-label='send message'
+                      onClick={btnSend}
+                      sx={{ width: 'fit-content', paddingRight: '0px' }}
+                    >
+                      <SendIcon />
+                    </IconButton>
+                  </Box>
                 </form>
               </Grid>
             </Grid>

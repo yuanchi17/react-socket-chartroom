@@ -10,8 +10,8 @@ import * as yup from 'yup'
 const schema = yup
   .object()
   .shape({
-    name: yup.string().required('請輸入暱稱'),
-    intro: yup.string().optional(),
+    name: yup.string().required('請輸入暱稱').max(10, '已超過 10 字'),
+    intro: yup.string().optional().max(20, '已超過 20 字'),
   })
   .required()
 
@@ -73,6 +73,9 @@ const Login = () => {
                 </Grid>
                 <Grid item>
                   <ControllerTextFiels control={control} name='intro' label='簡單介紹自己' />
+                  <Typography variant='subtitle2' color='red' sx={{ textAlign: 'end' }}>
+                    {errors?.intro?.message}
+                  </Typography>
                 </Grid>
                 <Grid item>
                   <Button variant='contained' onClick={handleBack} sx={{ mt: 3, mr: 1 }}>

@@ -12,7 +12,7 @@ const ImageSrc = styled('span')({
 
 const OtherMemberChat = ({ msg, member }) => {
   return (
-    <Grid item sx={{ display: 'flex' }}>
+    <Grid item sx={{ display: 'flex', marginBottom: '10px' }}>
       <ImageSrc style={{ backgroundImage: `url(https://i.imgur.com/${member.img}.png)` }} />
       <Box sx={{ display: 'flex', flexFlow: 'column', maxWidth: '80%', marginLeft: '10px' }}>
         <Typography variant='body2' gutterBottom>

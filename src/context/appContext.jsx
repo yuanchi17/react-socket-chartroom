@@ -6,8 +6,8 @@ import { useImmerReducer } from 'use-immer'
 const appContextDefaultValue = {
   activeStep: 0,
   user: {},
-  otherUsers: [], // { id: '', img: '', name: '', intro: ''}[]
-  msgs: [], // { type: '', time: '', userId: '', text: '', connect: boolean }[]
+  otherUsers: [], // { id: '', img: '', name: '', intro: '', connect: boolean }[]
+  msgs: [], // { type: '', time: '', userId: '', text: '' }[]
 }
 
 const AppContext = createContext(undefined)

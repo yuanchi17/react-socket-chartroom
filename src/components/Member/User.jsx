@@ -9,16 +9,18 @@ const CardContentStyled = styled(CardContent)({
   },
 })
 
-const CardStyled = styled(Card)({
+const CardStyled = styled(Card)(({ theme }) => ({
+  width: '100%',
+  minWidth: theme.memberCardMinWidth,
   boxShadow:
     '2px 2px 1px 0.5px rgba(98,193,198,0.5), 0px 1px 1px 0px rgba(98,193,198, 0.5), 0px 1px 3px 0px rgba(98,193,198,1)',
-})
+}))
 
 const UserMemberCard = () => {
   const { user } = useApp()
 
   return (
-    <CardStyled sx={{ width: '100%', minWidth: '160px' }}>
+    <CardStyled>
       <CardHeader
         sx={{ padding: '5px', paddingBottom: 0 }}
         avatar={<Avatar src={`https://i.imgur.com/${user.img}.png`} />}

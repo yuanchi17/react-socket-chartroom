@@ -61,12 +61,7 @@ const Chatroom = () => {
         direction={{ xs: 'column', sm: 'row' }}
         sx={{ height: { xs: '90vh', sm: '80vh' }, width: '90vw' }}
       >
-        <Grid
-          container
-          direction={{ xs: 'column', sm: 'row' }}
-          wrap={{ xs: 'nowrap', sm: 'wrap' }}
-          sx={{ height: '100%', minWidth: '100%' }}
-        >
+        <Grid container direction={{ xs: 'column', sm: 'row' }} wrap='nowrap' sx={{ height: '100%', minWidth: '100%' }}>
           <Grid
             item
             xs={3}
@@ -80,7 +75,7 @@ const Chatroom = () => {
           >
             <MemberList />
           </Grid>
-          <Grid item xs={9} sx={{ height: '100%', overflow: 'auto' }}>
+          <Grid item xs sx={{ height: '100%', overflow: 'auto' }}>
             <Grid container direction='column' sx={{ height: '100%', overflow: 'auto' }}>
               <Grid id='msg-list' item xs={10} sx={{ overflow: 'auto', padding: '15px' }}>
                 <Grid container direction='column' sx={{ overflowWrap: 'anywhere' }}>

@@ -1,4 +1,3 @@
-import { useApp } from '@/context/appContext'
 import styled from '@emotion/styled'
 import { Avatar, Card, CardContent, CardHeader, Typography } from '@mui/material'
 import clsx from 'clsx'
@@ -11,6 +10,8 @@ const CardContentStyled = styled(CardContent)({
 })
 
 const CardStyled = styled(Card)(({ theme }) => ({
+  width: '100%',
+  minWidth: theme.memberCardMinWidth,
   boxShadow:
     '2px 2px 1px 0.5px rgba(154,210,156,0.5), 0px 1px 1px 0px rgba(154,210,156, 0.5), 0px 1px 3px 0px rgba(154,210,156,1)',
   '&.member-disconnect': {
@@ -20,10 +21,11 @@ const CardStyled = styled(Card)(({ theme }) => ({
 }))
 
 const OtherMemberCard = ({ member }) => {
-  const { otherUsers } = useApp()
-
   return (
-    <CardStyled className={clsx('member-card', !member.connect && 'member-disconnect')}>
+    <CardStyled
+      className={clsx(!member.connect && 'member-disconnect')}
+      sx={{ mr: { xs: 2, sm: 0 }, mb: { xs: 0, sm: 2 } }}
+    >
       <CardHeader
         sx={{ padding: '5px', paddingBottom: 0 }}
         avatar={<Avatar src={`https://i.imgur.com/${member.img}.png`} />}

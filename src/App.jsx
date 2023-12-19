@@ -5,6 +5,7 @@ import Login from '@/pages/Login'
 import NotConnect from '@/pages/NotConnect'
 import socket from '@/socket'
 import COLOR from '@/utils/theme-color'
+import STYLE from '@/utils/theme-style'
 import { Box } from '@mui/material'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import _ from 'lodash'
@@ -39,7 +40,7 @@ export default function App() {
     }
   }, [])
 
-  const theme = createTheme(COLOR)
+  const theme = createTheme({ ...COLOR, ...STYLE })
 
   return (
     <ThemeProvider theme={theme}>

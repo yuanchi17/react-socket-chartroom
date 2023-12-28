@@ -1,178 +1,30 @@
-$color_blue: rgb(42, 64, 134);
-$color_gray: #acb7be81;
-$color_gray_leave: #acb7be30;
-$color_gray_leave_name: #adb5bd;
-
 body {
   letter-spacing: 1px;
-  @media only screen and (max-width: 600px) {
-    background-color: #2a408630;
-  }
+  height: 100vh;
+  margin: 0;
 }
 
-.App {
-  font-family: sans-serif;
-  text-align: center;
-}
-
-.chatroom {
-  display: flex;
-  border: solid 2px $color_blue;
-  height: 80vh;
-  @media only screen and (max-width: 600px) {
-    border: none;
-    height: 90vh;
-  }
-}
-
-.btn-img {
-  border-radius: 99px;
-  box-shadow: 0px 0px 5px 0.5px #3335;
-  height: 50px;
-  overflow: hidden;
-  width: 50px;
-  &.select-img, &:focus {
-    box-shadow: 0 0 0 0.2rem #ffc107;
-  }
-}
-
-.member-area {
-  @media only screen and (max-width: 600px) {
-    display: none;
-  }
-  flex-basis: 20%;
-  border-right: solid 1px $color_gray;
-  display: flex;
-  flex-direction: column;
-  overflow-wrap: anywhere;
-  .name {
-    font-weight: bold;
-    font-size: 15px;
-    color: $color_blue;
-  }
-  .intro {
-    font-size: 8px;
-  }
-  
-  .member-user {
-    border-bottom: solid 1px $color_gray;
-    .user-img {
-      height: 90px;
-      border-radius: 99px;
-    }
-  }
-
-  .member-other-list {
-    flex-grow: 1;
-    overflow: auto;
-    .member-other {
-      display: flex;
-      flex-direction: row;
-      border: solid 1px $color_gray;
-      border-radius: 5px;
-      .other-img-area {
-        min-width: 50px;
-        width: 30%;
-        img {
-          width: 100%;
-          border-radius: 99px;
-        }
-      }
-    }
-    .member-other.leave-member {
-      position: relative;
-      &::after {
-        background-color: $color_gray_leave;
-        content: "";
-        display: block;
-        height: 100%;
-        left: 0;
-        position: absolute;
-        top: 0;
-        width: 100%;
-        z-index: 1;
-      }
-      .name {
-        color: $color_gray_leave_name;
-      }
-    }
-  }
-}
-
-.chat-area{
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  // overflow: auto;
-
-  .chat-list {
-    flex-grow: 0.9;
-    overflow: auto;
-    font-size: 13px;
-    display: flex;
-    flex-direction: column;
-    .msg-area {
-      .msg {
-        background: #eee;
-        border-radius: 5px;
-      }
-      .msg-user{
-        color: #ffffff;
-        background: $color_blue
-      }
-      .msg-alert {
-        border-radius: 99px;
-      }
-    }
-    .msg-alert-area {
-      min-width: 80%;
-    }
-    .chat {
-      display: flex;
-      .img-area {
-        height: 40px;
-        width: 40px;
-        min-width: 40px;
-        img {
-          width: 100%;
-          border-radius: 99px;
-        }
-      }
-    }
-  }
-  .input-area {
-    display: flex;
-    flex-grow: 0.1;
-    max-height: 40px;
-    i {
-      color: $color_blue
-    }
-  }
-}
-
-#chat-view, .member-other-list {
-  overflow-wrap: anywhere;
+#member-all-list,
+#member-other-list,
+#msg-list {
   .time {
     color: #333;
     min-width: 33px;
-  };
-  &::-webkit-scrollbar-track { // 軌道的樣式
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-    background-color: #F5F5F5;
   }
-  &::-webkit-scrollbar { // 整體的scrollbar樣式
+  &::-webkit-scrollbar-track {
+    // 軌道的樣式
+    // -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #f5f5f5;
+  }
+  &::-webkit-scrollbar {
+    // 整體的scrollbar樣式
     width: 6px;
-    background-color: #F5F5F5;
+    height: 6px;
+    background-color: #f5f5f5;
   }
-  &::-webkit-scrollbar-thumb { // bar的樣式
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
-    background-color: #118bdd99;
+  &::-webkit-scrollbar-thumb {
+    // bar的樣式
+    // -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #fff391;
   }
-}
-
-.form-control:focus {
-  background-color: #fff;
-  background-clip: padding-box;
-  border: 1px solid #ced4da;
-  box-shadow: none;
 }

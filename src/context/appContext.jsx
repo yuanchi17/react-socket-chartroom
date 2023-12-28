@@ -4,8 +4,9 @@ import { createContext, useContext } from 'react'
 import { useImmerReducer } from 'use-immer'
 
 const appContextDefaultValue = {
+  activeStep: 0,
   user: {},
-  otherUsers: [], // { id: '', img: '', name: '', intro: ''}[]
+  otherUsers: [], // { id: '', img: '', name: '', intro: '', connect: boolean }[]
   msgs: [], // { type: '', time: '', userId: '', text: '' }[]
 }
 
@@ -14,8 +15,11 @@ AppContext.displayName = 'app-context'
 
 const reducer = (draft, action) => {
   switch (action.type) {
-    case 'userLogin':
-      draft.user = action.payload
+    case 'setUser':
+      draft.user = {
+        ...draft.user,
+        ...action.payload,
+      }
       break
     case 'addOtherUser': {
       const newUser = action.payload
@@ -47,6 +51,9 @@ const reducer = (draft, action) => {
         time: moment().format('HH:mm'),
         type: 'alert',
       })
+      break
+    case 'setActiveStep':
+      draft.activeStep = action.payload
       break
   }
 }
